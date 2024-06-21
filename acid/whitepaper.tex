@@ -1,41 +1,47 @@
 \documentclass{article}
+\usepackage{CJKutf8}
 \usepackage{multicol}
 % Packages
 \usepackage{lipsum} % For generating dummy text
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{hyperref}
+
 % Title and author
 \title{Autonomous competence identification protocol}
 \author{Tim Pechersky}
 
 
 \begin{document}
+\begin{CJK}{UTF8}{gbsn}
 
 \maketitle
 
 
 
 \begin{abstract}
-    The proposed protocol offers a novel approach where ranking system is built based on peer to peer network topology based on already established existing precedent.
-    The core idea is simple and can be explained for non technical person as a simple game that can be played with friends, family or colleagues, while it is also scalable to machine to machine interactions.  The existing precedent of such game is studied and shows some optimistic participation rate numbers.
-    On more technical level the protocol aims to address the challenge of finding consensus in social interactions and decision-making processes. It focuses on defining interoperable and liquid voting weights for participants in a non-computational system, specifically in the context of decentralized autonomous organizations (DAOs).
+    This paper proposes a novel protocol for designing ranking systems applicable to consensus-building protocols and decentralized autonomous organizations (DAOs). Leveraging recent cryptographic advancements and social science insights, the protocol facilitates autonomous decision-making in trustless environments based on agent interactions, addressing key challenges in autonomous organizations. We examine an existing precedent, originating as an easy-to-understand tabletop game, which demonstrates promising participation rates even among non-technical users. Our proposed implementations focus on defining interoperable and liquid voting weights for participants, facilitated in both computational and non-computational (social) networks. Additionally, we briefly review economic models for the practical utilization of such competence frameworks and game theoretic moments.
 \end{abstract}
 \begin{multicols}{2}
+
 \section{Introduction}
-The proposed protocol offers a novel approach to competence identification and decision-making based on peer to peer network topology based on already established existing precedent.
-The core idea is simple and can be explained for non technical person as a simple game that can be played with friends, family or colleagues, while it is also scalable to machine to machine interactions.  The existing precedent of such game is studied and shows some optimistic participation rate numbers.
-On more technical level the protocol aims to address the challenge of finding consensus in social interactions and decision-making processes. It focuses on defining interoperable and liquid voting weights for participants in a non-computational system, specifically in the context of decentralized autonomous organizations (DAOs).    The proposed protocol offers a novel approach to competence identification and decision-making based on peer to peer network topology based on already established existing precedent.
-The core idea is simple and can be explained for non technical person as a simple game that can be played with friends, family or colleagues, while it is also scalable to machine to machine interactions.  The existing precedent of such game is studied and shows some optimistic participation rate numbers.
-On more technical level the protocol aims to address the challenge of finding consensus in social interactions and decision-making processes. It focuses on defining interoperable and liquid voting weights for participants in a non-computational system, specifically in the context of decentralized autonomous organizations (DAOs).    The proposed protocol offers a novel approach to competence identification and decision-making based on peer to peer network topology based on already established existing precedent.
-The core idea is simple and can be explained for non technical person as a simple game that can be played with friends, family or colleagues, while it is also scalable to machine to machine interactions.  The existing precedent of such game is studied and shows some optimistic participation rate numbers.
-On more technical level the protocol aims to address the challenge of finding consensus in social interactions and decision-making processes. It focuses on defining interoperable and liquid voting weights for participants in a non-computational system, specifically in the context of decentralized autonomous organizations (DAOs).    The proposed protocol offers a novel approach to competence identification and decision-making based on peer to peer network topology based on already established existing precedent.
-The core idea is simple and can be explained for non technical person as a simple game that can be played with friends, family or colleagues, while it is also scalable to machine to machine interactions.  The existing precedent of such game is studied and shows some optimistic participation rate numbers.
-On more technical level the protocol aims to address the challenge of finding consensus in social interactions and decision-making processes. It focuses on defining interoperable and liquid voting weights for participants in a non-computational system, specifically in the context of decentralized autonomous organizations (DAOs).\cite{lamport1994}
+
+The quest for consensus, a cornerstone of collective decision-making, has deep historical roots. \\
+From the ancient Chinese concept of \textit{zhongyong} \\ {\CJKfamily{bsmi}
+中庸}, advocating for moderation and balance in governance, to the Roman Republic's emphasis on \textit{senatus consulta} (senate decrees) reached through deliberation and compromise, societies have long grappled with the challenge of aligning diverse perspectives towards a common goal and are still being studied today \cite{Andersen2019} \cite{Frederic2014}. \\
+The pursuit of consensus, has gained renewed significance in the digital age. Blockchain technology and industry emerged from Bitcoin whitepaper\cite{Satoshi} is fundamentally seeking for consensus and establishing proof based trust systems. The Byzantine Fault Tolerance (BFT) problem often used to compare computational and communication efforts of participants to find an agreement is being studied seeking and more efficient algorithms with less communication rounds needed are emerging \cite{Genrui2023}. \\
+Networks built upon these BFT problem solution principles enable the creation of decentralized autonomous organizations (DAOs) \cite{Hassan2021} that facilitate decision making that cannot be deterministically verified to be correct\cite{Shuai2019}, which makes decision making process much more challenging \cite{Rainer2023}, ultimately yielding researchers to doubt if autonomous organizations ever can solve hierarchical issues of today society \cite{Marcella2016}.   \\
+In this paper the gap between formally verifiable, automated consensus and subjective human decision making is addressed. Proposed protocol can achieve consensus for any, including a subjective nature of decision making process, by qualifying participants based on their ability to represent a group's interest and intents. It aims to provide a foundational brick for designing ranking systems that can be largely applied to both computational and social networks, with predetermined negative effects of Sybil attacks and resistance to agenda manipulation problems \cite{McKelvey1976}.\\
+Main objectives thus are to propose a methodology for creating a ranking system in a trustless environment, review attack vectors and resistance mechanisms, provide a case study of existing use-case and discuss potential economic models for the practical utilization of such competence frameworks.
+We will start by reviewing the existing consensus mechanisms and their limitations, with a particular focus on Decentralized Organizations (DAOs) and their governance mechanisms. We will then introduce the proposed protocol, followed by a discussion of its implementation and potential economic models. Finally, we will provide a case study of an existing use-case and conclude with a discussion of future research directions.
 
 \section{Background}
 % Write your methodology here
+While {Shuai2019}.
+These systems, designed to operate without centralized control, rely on the on network participants to reach agreements that align with the collective interest.
 
 
+we are generalizing the proof based consensus mechanisms for social network interaction by viewing any network node as rational-agent which may diverge from collective interest \cite{Philip2019} individually or collude with others. We propose BFT tolerance methodology that allows reaching effective consensus based on participant inputs, opinions and  we can say that protocols reach an agreement in a trustless environment by qualifying the competence of the participants. Bitcoin miners are required to solve a cryptographic puzzle to prove their competence, or ethereum Proof of Stake consensus mechanism qualifies participants by their ability by ability to adhere to distributed ledger rules a   nd stake their assets. \\ Similarly DAO participants are qualified by their ability to hold a token and participate in the voting process. Tokens held can be seen as analogy to stake in PoS consensus mechanism, incentivising participants to act in the best interest of the organization. The gap however exists between such automated protocols and DAO governance as organizations agenda may be much more arguable then a "simple" cryptographic puzzle, which despite any computational complexity it might have, most of the time can be formally verified to be correct.\\
+This becomes more emergent as the DAOs are becoming more complex and must take effective and prompt decisions in a trustless environment, which often leads to burden of complexity on users, while often a decision making process involves a fairly traditional board-level discussions within governance forum boards, which yields for doubts as researchers find blockchain-based governance systems likely not to solve problems of social .
 
 \section{Protocol Description}
 % Write your conclusion here
@@ -50,5 +56,5 @@ On more technical level the protocol aims to address the challenge of finding co
 \bibliographystyle{ieeetr}
 \bibliography{whitepaper.bib}
 
-
+\clearpage\end{CJK}
 \end{document}
