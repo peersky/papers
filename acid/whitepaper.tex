@@ -185,6 +185,12 @@ While these solutions are effective in preventing funds loss, the reduce in reac
 Recent cryptographic advancements have enabled the development of new governance and consensus mechanisms that may be used to address the challenges faced by DAOs. For example, the use of zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) allows for the creation of verifiable and private voting systems that can be used to ensure the integrity of voting processes within DAOs \cite{Ben-Sasson2014}, while MPC threshold-signature protocols can be used to create secure multi-party data signing process \cite{Doerner2023} and fully homomorphic encryption promises us soon ability to run fully private calculation directly on-chain \cite{Fhenix}.\\
 Summing this section up, we can say that whatever new protocol is designed for governance, it is realistic to set requirements of privacy in voting and proposing process.
 
+
+\\subsection{Byzantine Fault Tolerance}
+
+
+
+
 \subsection{Proposed Protocol origins}\label{sec:protocol_origins}
 Foundation for this research originates from existing precedent of a game that is played by small Lithuanian group of friends in chat messenger since 2017. This original game never had ambition to become a protocol or a system, but it was a fun way to spend time and exchange music ideas between friends-musicians who were all living in different countries and used it as mean to stay engaged. The game typically consists of 5 to 10 people, and series of rounds. Each round a player is assigned a role of a "game master". Participants send game master music compositions they like and game master compiles them into a playlist. The playlist is then shared with all participants, who vote on their favorite composition by sending their vote to the game master again. At the end of a turn, the game master reveals the proposer identities, as well as scores proposal based on votes. The game continues to the next round until total of hundred compositions are added to the playlist. Each round scores are aggregated per participant, yielding a final ranking.\\
 Notably, the game has high agenda manipulation resistance, as every participant is required to make a proposal, in order to vote, which is contrary to traditional voting systems, where small group of proposers can pose a threat  \cite{McKelvey1976}. Also this game mechanics effectively coupes negative effects of proposals such as known as Hallo effect \cite{Verhulst2010}. \\
@@ -193,21 +199,23 @@ It also demonstrates some of the key features that are desirable in a governance
 It appears that participants in order to conduct a round must \(i\) submit a proposal, \(ii\) get proposals batch, \(iii\) submit a vote, resulting communication complexity $O(3n)$ per round
 
 
-\subsection{Summing up the problem}
+\subsection{Summing up the context}
+From the issues identified in the background sections we can sum up that there are multiple problems that are faced both on network protocol level governance as well as on application layer built DAOs as well: Low participation rates, low Nakamoto coefficients, lack of application layer commitments, and lack of multidimensionality.
+We can also note that incentive based protocols cause centralization, yet decentralized organizations are not able to provide a commitment mechanism for participants, nor do they have truly autonomous way to appoint stakeholders purely from the mission it has, nor identify competent actors in the system to take prompt, time-critical actions.\\
+We have discussed two different kinds of systems so far - based on consensus layer continuous proving and application layer share-holder voting and identified different problems of both of these kinds.
+We also outlined that already existing DAO precedent can show positive dynamics in Nakamoto coefficient when influence is sub-linear to efforts, compared to Consensus Layer systems that incentivize participants. We also outlined precedent of a game that has high participation rates and user retention (further elaborated in case study section).\\
 
 \section{Protocol Description}
-From the issues identified in the background sections we can sum up that there are multiple problems that are faced both on network protocol level governance as well as on application layer built DAOs as well: Low participation rates, low Nakamoto coefficients, lack of application layer commitments, and lack of multidimensionality.
-We can also note that incentive based protocols cause centralization, yet decentralized organizations are not able to provide a commitment mechanism for participants, nor do they have autonomous way to automatically identify competent actors in the system to take prompt, time-critical actions.\\
-We have discussed two different kinds of systems so far - based on consensus layer continuous proving and application layer share-holder voting and identified different problems of both of these kinds. \\
-Assuming there can be some kind of general solution for these, we can outline a generic DAO specifications, we are looking for a protocol that will enable a generic DAO to have following properties:\\
-\textbf{High participation rates}: The protocol participants should actively participate in the decision-making process by the design of the protocol, not by the external incentives.\\
-\textbf{Resistant to influence compounding}: Protocol should be designed in a way that over time dependency on single actors shall be reduced, Nakamoto coefficient shall grow.\\
-\textbf{Application layer commitments}: Protocol should allow DAO to require participants to make a commitment to the organization in order to participate in the decision-making process.\\
-\textbf{Multidimensionality}: Protocol should enable multidimensional indexes and foundational models to be built on top of it, as well as promote working groups that can be more operative than a main governing body.\\
+
+In order to enable deductive reasoning, we can outline specifications that a generic abstract organization must fulfill. Besides these, we preferably want to system to be compatible with existing solutions and technologies that allow data integrity, privacy and security, assuming that distributed ledger and multiparty computation signing may be combined to cover these problems. \\
+We are seeking for protocol that is:\\
+\textbf{Mission aligned}: Organization members should actively participate in the decision-making process by the design of the protocol, their activity shall be directly impacting the organization goals and mission.\\
+\textbf{Highly performant}: Ideally, every organization design shall automatically align participants in collaborative model, enabling everyone to do their best contribution towards shared direction. , with utilizing full potential of competitive performance provided by decentralized autonomous methodology.\\
+\textbf{Centralization resilient}: Protocol should be designed in a way that over time dependency on single actors shall be reduced, Nakamoto coefficient shall increase, promoting collaboration over competition for those aligned in automatic manner. \\
+\textbf{Multidimensionality}: Protocol should enable multidimensional indexes and foundational models to be built on top of it, as well as promote working groups that can be more operative than a main governing body. At the global scale this should support automatically combining multiple DAOs in superset and enable establishing data, asset and control specific flows-controls.\\
 \textbf{Rational agent friendly}: Protocol should be designed in a way that any network node must be seen as rational-agent which may diverge from collective interest or collude with others and still not able to reach  influence over the system beyond what protocol accounts for.
 
-
-
+Our proposed approach is to consider that
 Based on provided background section for protocol origins, In order to support solving all of the objectives, we can specify that outcome of protocol is a transferrable asset, that represents competence of the participant in a particular subject. This subject may be represented as a string of text, describing it, or as a URI to a resource that describes it.
 Transferability is an important aspect as this allows us to account agent rational actions, and even high concepts of corruption and collusion, as a free-market values that are not necessarily bad and simply define intrinsic value of any transferable asset. Other words saying, we see personal competences in CPSS frameworks useful as a market value, that can be traded. While this can me argued as a controversial statement, we can see that in the real world, the competence is often traded in form of a investing time and money in education, and since we declare as a requirement to have a compounding resistance, we can see that this is a way to ensure that the competence is not traded in a way that it can be easily bought by a single entity. Similarly intrinsic value can be used by organizations that use protocol to define staked commitments, similarly as PoS consensus mechanisms do.\\
 Subjects themselves provide a way to ensure multidimensionality, for example a text string may be vectorized with Large-Language-Model to provide a multidimensional representation of the subject, or a URI may be used to point to a resource that provides a multidimensional representation of the subject.\\
