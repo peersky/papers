@@ -11,6 +11,12 @@
 \usepackage{standalone}
 \usepackage{listings}
 \usepackage{xcolor} % For setting colors
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{afterpage}
+\usepackage{placeins}
 
 \lstset{
   language=[LaTeX]TeX,
@@ -33,8 +39,8 @@
 \begin{document}
 \begin{CJK}{UTF8}{gbsn}
 
+    % \twocolumn
     \maketitle
-
 
 
     \begin{abstract}
@@ -72,20 +78,23 @@
         Consensus layer protocols also have the underlying node operator community which incentive driven and studies on Nash Equilibrium \cite{Nida2020} are done while the real situation for Ethereum is that Miner Extracted Value is shown \cite{Philip2019} as realistic thread to protocol level security that comes down to affecting applications such as decentralized exchanges. Same paper also observes that agents pursuing MEV can achieve cooperative equilibrium in terms of priority gas auctions. \\
         "Ethereum Proof-of-Stake Consensus Layer: Participation and Decentralization research" \cite{Dominic2023} has shown that practical Nakamoto coefficient numbers in automated consensus engines such as PoS and Pow (Proof of Stake and Work accordingly) have stabilized on a very low numbers of less then 5 entities standing behind whole pool of validators and miners, and seem not to show any positive dynamics.
 
-
+        % \paragraph{}
         \subsection{Application Layer}
         While research in CPSS field point out demand for DAOs as solution \cite{Fei2016}\cite{Wang2022}\cite{Juanjuan2023}, the ability of DAOs to perform well and be competitive, however, is under question, as many research point out associated problems \cite{Rainer2023}\cite{Marcella2016}\cite{Xuan2024}.  \\An empirical Study of On-Chain Governance conducted by Rainer Feichtinger et. al. \cite{Rainer2023} shows low Nakamoto coefficient numbers, however comparing it with Consensus Layer research \cite{Dominic2023} we can conclude there is a positive dynamic in the Nakamoto coefficient over time in DAOs, compared with absence of such for the consensus layer. Same research\cite{Rainer2023} also shown that analyzed DAOs Gini coefficients\cite{Lidia2012} are high, reaching 0.888-1 for direct holders and 0.667-0.980 range when counting delegates, also shown participation rate in DAOs are low. Out of four analyzed DAOs (Compound, Uniswap, ENS and Gitcoin), none of them are showing positive dynamics in participation rate over time, and mean numbers for participation even amongst delegates are in range of 1.1-9.9\% of total delegated accounts.
 
 
-        Another highlighted problem can be seen in the voting participation rates, which are low. For example, Compound DAO quorum requires only 400,000 \cite{CompDAO} votes out of 10,00,000 total token supply \cite{CompToken}, which is only 4\%, yet in practice some of proposals fail to reach even this low threshold from the first time and have to re-submit \cite{CompProp232}\cite{CompProp237}. To illustrate problem further some quorum requirements are illustrated in Table \ref*{table:dao-metrics}. Such low quorum requirements are directly explainable by a low participation rates, and already have a record of quorum attacks \cite{AragonBlog}\cite{rhizoo2023} precedents, that were exploiting this weakness, while contrary in high participation rate consensus layer systems, such as PoS and PoW, the financial incentives towards participation shown not just to negatively impact  Nakamoto coefficients, but also have shown that any network node must be seen as rational-agent which may diverge from collective interest \cite{Philip2019}.
-
-        \end{multicols}
-        \input{quorums.tex}
-        \begin{multicols}{2}
-        as can be seen from \ref*{fig:game-connection}
-
+        Another highlighted problem can be seen in the voting participation quorum thresholds, which are low. For example, Compound DAO quorum requires only 400,000 \cite{CompDAO} votes out of 10,00,000 total token supply \cite{CompToken}, which is only 4\%, yet in practice some of proposals fail to reach even this low threshold from the first time and have to re-submit \cite{CompProp232}\cite{CompProp237}. To illustrate problem further quorum requirements of few high value DAOs are illustrated in Table \ref*{table:dao-metrics}. Such low quorum requirements are directly explainable by a low participation rates, and already have a record of quorum attacks \cite{AragonBlog}\cite{rhizoo2023} precedents, that were exploiting this weakness, while contrary in high participation rate consensus layer systems, such as PoS and PoW, the financial incentives towards participation shown not just to negatively impact  Nakamoto coefficients, but also have shown that any network node must be seen as rational-agent which may diverge from collective interest \cite{Philip2019}.
+        % \end{multicols}
+        % \afterpage{
+            % \onecolumn
+            % \clearpage
+            \input{quorums.tex}
+            % }
+            % \begin{multicols}{2}
+        % \twocolumn
+        % \paragraph{}
         \subsection{Comparing two above}
-        DAOs ultimately are just an abstraction layer on top of Consensus, allowing blockchain users to abstract away from calculations intensity onto smart contract programming and therefore more versatile, dynamic governance systems that can rely on underlying consensus security guarantees. Difference however also lies in implementation specifics: while Consensus layers do provide participation incentives, the application layer organization might not propose such at all, instead providing a means to make a governance decisions that are profitable on their own. \\ Analyzing  Nakamoto coefficient we can see a notable difference between Nakamoto coefficient in DAOs vs Consensus layer. One possible explanation for this phenomenon can be coined as "curse of money making money". It suggests that in order to ensure growth of Nakamoto coefficient, the ability to influence the system should grow at a rate that must be sub-linear in relation to entities efforts (investments), ensuring that no disproportionate compounding of power occurs. In other words, the growth of influence should not match or exceed a linear rate to prevent centralization, highlighting the necessity for mechanisms that enforce a diminishing increase in influence relative to investment or contribution (Fig. \ref*{fig:growth-influence}).
+        DAOs ultimately are just an abstraction layer on top of Consensus, allowing blockchain users to abstract away from calculations intensity onto smart contract programming and therefore more versatile, dynamic governance systems that can rely on underlying consensus security guarantees. Difference however also lies in implementation specifics: while Consensus layers do provide participation incentives, the application layer organization might not propose such at all, instead providing a means to make a governance decisions that are profitable on their own. \\ Analyzing  Nakamoto coefficient we can see a notable difference between Nakamoto coefficient in DAOs vs Consensus layer. One possible explanation for this phenomenon can be coined as "curse of money making money". It suggests that in order to ensure growth of Nakamoto coefficient, the ability to influence the system should grow at a rate that must be sub-linear in relation to entities efforts (investments), ensuring that no disproportionate compounding of power occurs. In other words, the growth of influence should not match nor exceed a linear rate to prevent centralization, highlighting the necessity for mechanisms that enforce a diminishing increase in influence relative to investment or contribution (Fig. \ref*{fig:growth-influence}).
 
         One another notable difference is in the security model. While relying on consensus engine enables security guarantees, the opposite side of that medal is that such application layer governance mechanisms have no similar alternative as consensus layer operators do with hard-fork ability. Even if community members agree on such decision in case exploit happens, there is no easy way to "split away" saving full state. The only known occasion of such successful split was The DAO Hack Hard-fork which was done very controversially at the protocol level.  \cite{Liu2021}.
         This is a substantial difference with consensus layers, where any participation requires a commitment that either requires to do work prior to a particular vote (PoW), or have assets at stake (PoS, Optimistic Rollups) that can be lost during due to any activity by operator against the protocol rules.\\
@@ -93,7 +102,7 @@
 
         While these solutions are effective in preventing funds loss, the reduce in reaction time by organization is not always acceptable. Need for prompt decision making is leads to empowering security players to run a privileged multi-signature wallets to run emergency stop or veto power over DAO protocols \cite{Jason2024}. Fact of presence of such, centralizing actors makes DAO frameworks to behave in non-autonomous way. The more general question is left open - how to appoint such privileged actions takers in an autonomous ways, ideally defining the privileges as a function of certainty in the actor?
 
-    \end{multicols}
+    % \end{multicols}
     % Manually place the figure without the figure environment
     % Inside the multicol environment
 
@@ -196,7 +205,7 @@
             \caption{Second Plot}
         \end{minipage}
     \end{figure}
-    \begin{multicols}{2}
+    % \begin{multicols}{2}
 
         \subsection{Recent cryptographic advancements}
         Recent cryptographic advancements have enabled the development of new governance and consensus mechanisms that may be used to address the challenges faced by DAOs. For example, the use of zk-SNARKs (Zero-Knowledge Succinct Non-Interactive Argument of Knowledge) allows for the creation of verifiable and private voting systems that can be used to ensure the integrity of voting processes within DAOs \cite{Ben-Sasson2014}, while MPC threshold-signature protocols can be used to create secure multi-party data signing process \cite{Doerner2023} and fully homomorphic encryption promises us soon ability to run fully private calculation directly on-chain \cite{Fhenix}.\\
@@ -221,51 +230,75 @@
         In order to enable deductive reasoning, we can outline specifications that a generic abstract organization must fulfill. Besides these, we preferably want to system to be compatible with existing solutions and technologies that allow data integrity, privacy and security, assuming that distributed ledger and multiparty computation signing may be combined to cover these problems. \\
         We are seeking for protocol that is:\\
         \textbf{Mission aligned}: Organization members should actively participate in the decision-making process by the design of the protocol, their activity shall be directly impacting the organization goals and mission.\\
-        \textbf{Highly performant}: Ideally, every organization design shall automatically align participants in collaborative model, enabling everyone to do their best contribution towards shared direction. , with utilizing full potential of competitive performance provided by decentralized autonomous methodology.\\
+        \textbf{Highly performant}: Ideally, every organization design shall automatically align participants in collaborative model, enabling everyone to do their best contribution towards shared direction, with utilizing full potential of competitive performance provided by decentralized autonomous methodology.\\
         \textbf{Centralization resilient}: Protocol should be designed in a way that over time dependency on single actors shall be reduced, Nakamoto coefficient shall increase, promoting collaboration over competition for those aligned in automatic manner. \\
         \textbf{Multidimensionality}: Protocol should enable multidimensional indexes and foundational models to be built on top of it, as well as promote working groups that can be more operative than a main governing body. At the global scale this should support automatically combining multiple DAOs in superset and enable establishing data, asset and control specific flows-controls.\\
-        \textbf{Rational agent friendly}: Protocol should be designed in a way that any network node must be seen as rational-agent which may diverge from collective interest or collude with others and still not able to reach  influence over the system beyond what protocol accounts for.
+        \textbf{Rational}: Protocol should be designed in a way that any network node must be seen as rational-agent which may diverge from collective interest or collude with others and still not able to reach  influence over the system beyond what protocol accounts for.
 
 
         \subsection{Market value of competence}
-        In order to support solving all of the objectives, we propose to specify, that outcome of protocol is a transferrable asset, that represents competence of the participant in a particular \textit{subject}. \\
-        The \textit{subject} in it's turn is to be described with the properties, such as text description, or unique resource identifiers assigned to it, which further may be used to point to a multidimensional representation of the subject by a third party tools, such as large-language-model that has a dimensionality concept within analyzed text already. \\
-        Transferability is an important aspect as this allows to accomplish multiple goals, starting with agent rational actions: even concepts of corruption and collusion can be seen as game-theoretic \cite{Macrae1982}, are not necessarily bad \cite{Leff1964}, and can be seen trough definition of an intrinsic value of any transferable asset. Other words saying, we see personal competences in CPSS frameworks useful as a market value, that may be useful to trade. While this can me argued as a controversial statement, we can discuss that in the real world competence indeed is often traded in form of a investing time and money in education, relationships, that eventually form a social ranking. Since we declare as a requirement to have a compounding resistance, it forms a solid basis for building economic models that penalize competence-market participants heavy enough,  and the competence is not traded in a way that it can be easily bought by a single entity.\\ Transferability of value can be used by other protocols to define staking commitments, similarly as PoS consensus mechanisms do, eventually forming a rational economic model that would incentivize any participant to maintain his reputation.\\
+        In order to support solving all of the objectives, we propose to specify, that outcome of protocol is a transferrable asset, that can effectively tokenize the competence rating of bearer. \\
+        Transferability is an important aspect as this allows free market rules to establish and accomplish multiple goals, starting with agent rational actions: even concepts of corruption and collusion can be seen as game-theoretic \cite{Macrae1982}, are not necessarily bad \cite{Leff1964}, and can be seen trough definition of an intrinsic value of any transferable asset. Other words saying, we see personal competences in CPSS frameworks useful as a market value, that may be useful to trade. \\While this can be argued as a controversial statement, we can discuss that in the real world competence indeed is often traded in form of a investing time and money in education, relationships, that eventually form a social ranking. Since we declare as a requirement to have a compounding resistance, it forms a solid basis for building economic models that penalize competence-market participants heavy enough,  so that competence is not traded in a way that it can be easily bought by a single entity.\\ Transferability of value can be used by other protocols to define staking commitments, similarly as PoS consensus mechanisms do, eventually forming a rational economic model that would incentivize any participant to maintain his rating asset.\\
         The multidimensionality, supported by any semantics of subjects also benefit from free market economy, as it is expected to help arbitraging between different successful and largely adopted subjects that share same dimensionality. Nevertheless, for many software defined use cases of ownership within Account Abstraction\cite{Qin2023} model, the assets could be made non-transferable, and still be used as a proof of competence of a specific account.\\
         Providing a influence to compounding becomes a critical aspect part for such protocol, since we are relying to a free-market values and principally do not require any specific identity solution as a dependency to this protocol.
-        Our foundational model for this resistance lies in extending  ~\ref{sec:protocol_origins} idea, to introduce \textit{ranking ladder} (Fig. \ref*{fig:game-connection}) that lets game winner to participate in next game with higher level of rewards only if it holds an asset of rank below. Each time participant produces a next level, his previous rank asset balance, that was used gets \textit{exchanged}. This expected to create non-linear friction towards any sybil attack, allowing competent actors who are willing spend their time to participate in the game to be rewarded with advantage over any colluding company that is trying to game the system.
+        Our foundational model for this resistance lies in extending  ~\ref{sec:protocol_origins} idea, to introduce \textit{ranking ladder} (Fig. \ref*{fig:game-connection}) \input{ladder.tex} that lets game winner to participate in next game with higher level of rewards only if it holds an asset of rank below. Each time participant produces a next level, his previous rank asset balance, that was used gets \textit{exchanged}. This expected to create non-linear friction towards any sybil attack, allowing competent actors who are willing spend their time to participate in the game to be rewarded with advantage over any colluding company that is trying to game the system.
 
-        If every game does require to have some kind of commitment, such as participation fee, than is possible to prove that such ranking ladder would create non-linear friction for anyone trying to game the system.\\
-        Considering such fee, it directly follows that competence obtained by such game participation cannot be used to influence decisions whose total value is comparable with costs of obtaining competences. Assume situation that organizations total value locked is equal to $TVL$, it's obvious that if such organization is governed by a token, the total case of governance quorum attack shall be more expensive than $TVL$. In case if there is any additional token used as weight multiplier, than obtaining such weight multiplier should be at least as much as expensive as to do direct quorum attack. \\
-        Hence price relationship requirement between governing token and produced competence token can be defined. In case of linear proportional multiplier, that is $$V_w=C*P$$ where Vw is vote weight, $C$ is competence level and $P$ is governance power, we can conclude that required price between competence level and governance power token can be defined by function
-        $$\$C_i\geq P*i$$
-        Where $i$ is level of competence.
-        Hence $C_i$ qualification must by design cost something in governance power equivalent for each participant. In other words, there must be a \textit{game price} defined that acts as resistance to gaining competence level from one side, while on the other side, our goal is to create high participation rates which imply a need for a low effort requirement.
-        Solution for this is imposing minimum game size.
+        If each game requires a commitment, such as a participation fee, we can demonstrate that the proposed ranking ladder introduces non-linear friction for potential malicious actors attempting to manipulate the system.
 
-        Assume we have $N_{min}$ peers required to join the game, each of those must pay $X_g$ price in order to join. Then for an attacker who tries to conduct a sybil attack it would cost
-        $$\$C(i) = X_g*N_{min}^i$$
-        At the same time, for the agent who is relying on his pure competence and wins each game, same cost would be only
-        $$\$C(i) = X_g*i$$
-        If adversary would try to optimize this around quorum attack internally in the voting, then his efforts could be minimized to
-        $$\$C(i) = X_g*N_{q}^i$$
-        where
-        $$N_{q} = \lfloor N_{min}/2 \rfloor+1$$
-        From this it follows that for such system to be secure, the voting process should happen in larger groups as it will make it more difficult for malicious user to gain high ranking.
-        On the other hand we want to keep games small enough to ensure that agents have sufficient ability to perform as small units. // This seems to be reasonable constraint, as it seems intuitive and inline with existing governance practice, that for lower $TVL$ decisions can be done by small pods, while high $TVL$ competences would require higher volume of engagement.\\
-        If attacker would try to reduce his cost even further, he could to reinforce his vote by having some limited number of sybil accounts voting for him, yet keeping that number below $N_{q}$ and relying on a stochastic nature present in any voting process. For such case use of quadratic voting is proposed; If during individual round the scores are calculated using
+        To illustrate this, let's introduce the concept of a agent alignment vector, denoted as  $\mathbf{V_a}$. This vector captures the collective preference of the group within a given context. In the absence of collusion or manipulation, a blind proposing-voting process is inherently probabilistic, the magnitude of this vector, $|\mathbf{V_a}|$, hence quantifies the resistance to entropy inherent in participants' choices.
 
-        $S_{given}=\sqrt {V_{credits\_given}}$
-        \end{multicols}
-        \input{ladder.tex}
+        Assuming that the fair agent alignment vector $\mathbf{V_a}$  represents the aggregate of individual preference vectors $\mathbf{P_i}$, a fair winner is the participant whose  $\mathbf{P_i}$ aligns most closely with $\mathbf{V_a}$. This alignment maximizes their positive contribution to the overall group preference and can be quantified using measures like cosine similarity or Euclidean distance between the participant's and the group's vectors.
+        The protocol's inclusive and autonomous nature allows for a fully stochastic process at the lowest ladder level. Here, participants are assumed to make random decisions regarding tournament participation, proposals, and voting.
+        However, we postulate the existence of an underlying, unknown global alignment vector $\mathbf{V_{ga}(t)}$, that reflects the overall preferences of all protocol participants across time. This concept accommodates the diverse preferences of all participants, even in the boundary case of entirely random decisions.\\
+        In this fully stochastic scenario, the group's alignment is characterized by entropy, a measure of randomness. The Euclidean distance of each member's rank from the most probable rank for a random participant can serve as a measure of their capacity for random decision-making.
 
-        \begin{multicols}{2}
+        Conversely, in non-stochastic processes, participants exhibit alignment towards an arbitrary direction, shaped by their free-will choices to join specific tournaments. The protocol aims to quantify this alignment vector.
 
-        where $S$ denotes score and $V$ - vote, then the voting towards different candidates is incentivized. This still has to be observed in practice, the assumption however is that the higher level of peers are in game the harder to conduct such random dice game, as well as with higher rankings every participant will be skilled on his own ability to win and conduct decision making which is less likely to vote for non-competitive proposals.
+        Any colluding actors attempting a Sybil attack are effectively trying to manipulate this global alignment vector $\mathbf{V_{ga}(t)}$. Given our earlier requirements for an ideal protocol, it should encourage the formation of small groups while maintaining a large overall active participant count. This breakdown into smaller groups serves as a pre-alignment mechanism, as participants willingly choose to collaborate. In this context, any group can be seen as colluding, with Sybil attacks representing an extreme case of such alignment.
 
-        Nevertheless, it is assumed that players also \textit{must agree} on playing with each-other, while at any time it is guaranteed that only a handful of top-ranking players is possible even in theory - as the rank creation destroys the lower rank asset, leaders would have to wait until there is enough of high-ranking participants willing to compete with them.
-        This requirement leaves us to the last, but not least requirement: High Participation rates.
-        We argue that multidimensionality and free-market values will provide a way to ensure high participation rates, as participants will be able to participate in the decision-making process in a category that they are interested in, and that they are competent in, and lastly - are rewarded for being in.
+        Therefore, from the outset, each group is inherently aligned towards a specific direction, determined by the free will of its members to participate in a particular tournament. This pre-alignment introduces a degree of predictability, quantified by $|\mathbf{V_a}|$, into an otherwise stochastic process.
+
+
+        If there is a game fee, that creates participation resistance, we can say that achieving a specific level of competence cost is $\$C_i$ and can be expressed as a function of level of competence $i$ and game fee $X_g$ and mathematical expectation for costs achieving specific rank via sybil attack described as
+        $$\mathbb{E}[\$C(i)] = X_g \cdot \mathbb{E}[N_{\text{sybils}}(i)]$$
+
+        % $$\mathbb{E}[\$C(i)] = X_g*\mathbb{E}[{N_{sybils}(i)}]$$
+
+        Where $N_{sybils}(i)$ is a number of sybil accounts required to win a game of rank $i$. Due to tournament fragmentation, an attacker mixing Sybil accounts with fair players must strategically allocate Sybils across games for cost efficiency. However, this is challenging due to each group's unique $\mathbf{V_a}$, finding suitable games for manipulation is difficult.  Meanwhile, the distance between fair actors' preferences $P_i$ and $\mathbf{V_{ga}(t)}$ should diminish as their rank increases, reflecting the protocol's design.
+
+        In a straightforward Sybil attack scenario, the attacker attempts to manipulate the protocol by flooding games with multiple Sybil accounts.
+        Assume we have $N_{min}$ peers required to join the game. Then for an attacker who tries to conduct a sybil attack it would cost
+        $\$C(i) = X_g*N_{min}^i$ to get rank of level $i$. At the same time, for the agent who is relying on his pure competence and wins each game, same cost would be only $\$C(i) = X_g*i$.
+
+        In the context of governance power, this allows to draw price relationship between governing competence power that may be put at stake, and governed assets at stake: $$TVL << \$C(i)$$
+
+        \subsection{Time constraint}
+
+        As discussed in the previous section, any overt Sybil attack requires multiple game rounds to establish a sufficient ranking within the system. In the original protocol, participants engage in several voting and proposing rounds to determine a winner.
+
+        We preserve this multi-round requirement to enhance protocol security, ensuring resistance to centralization and maintaining mission alignment. We introduce a time constraint,  $t_c$ which represents the minimum time needed to mint a single competence asset of any rank.
+        Therefore, the intrinsic value of a tokenized competence rating is determined not only by financial effort and success among peers but also by the time invested in continuously improving one's position within the system. Even with parallel attack instances, an attacker would still require $t_{attack}(i) = t_c \cdot i$ time to reach rank $i$. This extended duration allows protocol members ample opportunity to detect and respond to the attack. Similarly, the $t_c$ may be broken down to smaller components, giving participants ability to leave or cancel a game, specify round times etc.
+        \subsection{Multidimensionality}
+
+        While \textit{subject} may be described with the properties, such as text description, or unique resource identifiers assigned to it, an arbitrary multidimensional representation of the subject can be denoted as protocol global alignment vector $\mathbf{V_{ga}(t)}$.  \\
+        \subsection{Privacy constraints}
+
+        This paper addresses privacy requirements in a proposal evaluation protocol. The protocol aims to balance transparency and anonymity by:
+        \begin{itemize}
+            \item Linking Proposals to Proposers: Enabling the association of proposal submissions events with specific proposers, without revealing the proposal content initially.
+            \item Verifying Proposal Uniqueness: Ensuring the submitted proposal was uniquely known to the proposer at the time of announcement, while preserving proposer anonymity.
+            \item Protecting Preference Selection: Safeguarding the privacy of participant preferences during proposal selection.
+
+        \end{itemize}
+        \paragraph{}
+
+        These measures aim to mitigate the Halo effect, where judgments are influenced by personalities rather than ideas, and deter strategic voting by increasing the complexity of coordinated attacks against competent proposals. The de-personalized voting process aims to foster a fairer evaluation environment by focusing on the merit of the proposals themselves.
+        % \end{multicols}
+
+        \paragraph{}
+        % \begin{multicols}{2}
+
+        Concluding this section, we advocate that multidimensionality and free-market values will provide a way to ensure high participation rates, as participants will be able to participate in the decision-making process in a category that they are interested in, grouping with like-minded people in the fields they are competent in, and lastly - are rewarded for being in.
         With a ranking ladder, and a multidimensional representation, this can be seen as a global framework for building education and helping young talents to discover their path by observing very well quantized data on their progress. \\ We may also suggest that this protocol functionally may be presented as simply a new way of talking, where each input - seen as valuable idea, and each vote - seen as a valuable feedback, and each game final, as actionable result.\\
         In order to support such high participation rates, the user experience must be ensured as simple as possible, and the application must be designed in a way that it is easy to use and understand. In order for that, we require to have extensive metadata available for user experience purpose by the protocol as key requirement. For example, when participant sends in encrypted vote, or proposal - protocol shall be able to publicly announce that particular participant has submitted a vote, while not revealing the content of the vote nor the linkage to it after content is revealed for voting.\\
 
@@ -275,8 +308,23 @@
 
         % Write your conclusion here
         \section{Implementation}
-        Protocol particular implementation may vary depending on environment and requirements, however we can outline a generic implementation that can be used as a reference for further development.\\
-        The protocol can be implemented as a smart contract on a blockchain network, such as Ethereum, that allows participants to submit proposals, vote on proposals, and receive rewards based on their participation. Subject representing subject asset can be represented as semi-fungible asset, like ERC1155\cite{EIP1155} standard interface on Ethereum, where each token id represents a rank level, and games that award such rank require a token of one below to be held in order to participate. Such token shall be created only as a result of competence identifying smart contract activity result. The competence identifying contract is a turn-based game where group must collect together and has a signer-key (game master), who is able to sign for a private inputs and keep personalities of participants hidden by either using MPC or zk-SNARKs protocol.
+        Protocol particular implementation may vary depending on environment and requirements, however we can outline a generic implementation that can be used as a reference for further development. Following reference describes implementation as a smart contract on Ethereum Virtual Machine compatible network. \\
+
+        to
+
+        \end{multicols}
+        \input{algo}
+        \begin{multicols}{2}
+
+
+
+        Protocol consists of a semi-fungible tokenized asset contract, such as defined by ERC1155\cite{EIP1155} interface standard and with emission permit granted only to contract or contracts, that implementing autonomous competence identification. Game participation fee for such contracts is pre-defined and may consist of arbitrary asset commitment.
+        At this stage, protocol simply produces a competence representation in tokenized mean. The competence identification protocol contracts are turn-based continuous proposing-voting systems. Number of rounds and minimal time to make turns may be fixed to disavow any surprise governance attack. Game Master may be implemented as MPC network that obfuscated signs messages collectively
+
+        which will be either burned, either accumulated in DAO treasury      DAO contract, any typical industry standard implementation may be used; An voting power token
+
+
+        that allows participants to submit proposals, vote on proposals, and receive rewards based on their participation. Subject representing subject asset can be represented as semi-fungible asset, like standard interface on Ethereum, where each token id represents a rank level, and games that award such rank require a token of one below to be held in order to participate. \\ Such tokenized asset shall be created (minted) only as a result of competence identifying smart contract activity result. The competence identifying contract is a turn-based game where group must collect together and has a signer-key (game master), who is able to sign for a private inputs and keep personalities of participants hidden by either using MPC or zk-SNARKs protocol.
         The game master is responsible for collecting proposals and announcing fact of activity without disclosing the actor, then posting them as batch to a contract, collecting votes in a similar manner, without tell nor who, nor for whom votes, and finally revealing the results.\\
 
 
@@ -297,15 +345,24 @@
 
         We also observed that collected playlists, ordered by high-score compositions, are of high quality and form a good representation of participants' preferences, while the winner of the tournament is often a participant that is able not simply propose a popular song, but to propose a song that is liked by many participants, including such aspects that participants will likely vote songs they hear for the first time (original ideas).
 
+        \subsection{Governance integration}
+        In already established DAOs, this mechanism may be used to define slashing conditions. For example, a participant may have a right to perform privileged action on a DAO, by locking his competence level in escrow contract. If later, DAO votes with majority quorum condemning such an action as adversarial to the protocol, it may burn competence token of such an actor, which would result to have associated losses equal to cost of obtaining that competence asset. As per previous section, we've seen that such relationships may be reasoned.
+
+        For a broad and generic case, however, protocol use is envisioned to be able to bootstrap decentralized organizations, acting as replacement for initial-coin offerings \cite{Alshater22} and airdrops popular in DAOs today. In this, a DAO bootstrapped by competence identification protocol creates own intrinsic value on the go, the long sustained participation with participation high participation rates may result in DAO led decisions to deploy infrastructure or elaborate any protocol that would embed intrinsic value to such.
+
+        This also seems like a very natural way for autonomous organizations to scale from security standpoint, as if any quorum, sybil attack and others
+
+
+
         \section{Conclusion}
 
-    \end{multicols}{2}
-    we are generalizing the proof based consensus mechanisms for social network interaction by viewing any network node as rational-agent which may diverge from collective interest \cite{Philip2019} individually or collude with others. We propose BFT tolerance methodology that allows reaching effective consensus based on participant inputs, opinions and  we can say that protocols reach an agreement in a trustless environment by qualifying the competence of the participants. Bitcoin miners are required to solve a cryptographic puzzle to prove their competence, or ethereum Proof of Stake consensus mechanism qualifies participants by their ability by ability to adhere to distributed ledger rules a   nd stake their assets. \\ Similarly DAO participants are qualified by their ability to hold a token and participate in the voting process. Tokens held can be seen as analogy to stake in PoS consensus mechanism, incentivising participants to act in the best interest of the organization. The gap however exists between such automated protocols and DAO governance as organizations agenda may be much more arguable then a "simple" cryptographic puzzle, which despite any computational complexity it might have, most of the time can be formally verified to be correct.\\
-    This becomes more emergent as the DAOs are becoming more complex and must take effective and prompt decisions in a trustless environment, which often leads to burden of complexity on users, while often a decision making process involves a fairly traditional board-level discussions within governance forum boards, which yields for doubts as researchers find blockchain-based governance systems likely not to solve problems of social.
+        we are generalizing the proof based consensus mechanisms for social network interaction by viewing any network node as rational-agent which may diverge from collective interest \cite{Philip2019} individually or collude with others. We propose BFT tolerance methodology that allows reaching effective consensus based on participant inputs, opinions and  we can say that protocols reach an agreement in a trustless environment by qualifying the competence of the participants. Bitcoin miners are required to solve a cryptographic puzzle to prove their competence, or ethereum Proof of Stake consensus mechanism qualifies participants by their ability by ability to adhere to distributed ledger rules a   nd stake their assets. \\ Similarly DAO participants are qualified by their ability to hold a token and participate in the voting process. Tokens held can be seen as analogy to stake in PoS consensus mechanism, incentivising participants to act in the best interest of the organization. The gap however exists between such automated protocols and DAO governance as organizations agenda may be much more arguable then a "simple" cryptographic puzzle, which despite any computational complexity it might have, most of the time can be formally verified to be correct.\\
+        This becomes more emergent as the DAOs are becoming more complex and must take effective and prompt decisions in a trustless environment, which often leads to burden of complexity on users, while often a decision making process involves a fairly traditional board-level discussions within governance forum boards, which yields for doubts as researchers find blockchain-based governance systems likely not to solve problems of social.
 
-    The contrast between traditional organization and blockchain is that latter are set to follow some determined protocol of following consensus layer decisions in an autonomous way, therefore enabling CPS, there is no need for human stakeholder decision for a regular operations which are automated by running specific software applications (nodes) that maintain protocol on behalf of stakeholder.
-    These however work only well up to the point when the protocol changes are desired or some vulnerability happens which leads to need for stepping-off the protocol rules for at least one block. Such occasions generally are called hard-forks and have specifics that coordinated consensus between node operators changes their protocol rules to move away from existing logic. The "fork" in context describes split of consensus in two possible ledger book states which are not compatible.
-    \bibliographystyle{ieeetr}
+        The contrast between traditional organization and blockchain is that latter are set to follow some determined protocol of following consensus layer decisions in an autonomous way, therefore enabling CPS, there is no need for human stakeholder decision for a regular operations which are automated by running specific software applications (nodes) that maintain protocol on behalf of stakeholder.
+        These however work only well up to the point when the protocol changes are desired or some vulnerability happens which leads to need for stepping-off the protocol rules for at least one block. Such occasions generally are called hard-forks and have specifics that coordinated consensus between node operators changes their protocol rules to move away from existing logic. The "fork" in context describes split of consensus in two possible ledger book states which are not compatible.\
+    \end{multicols}
+        \bibliographystyle{ieeetr}
     \bibliography{whitepaper.bib}
 
     \clearpage\end{CJK}
