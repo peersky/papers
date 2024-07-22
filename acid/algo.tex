@@ -1,0 +1,46 @@
+
+\begin{algorithm}
+\caption{Basic Autonomous competence identification}
+\begin{algorithmic}[1] % Enables line numbering
+\State \textbf{Prerequisites:} Minimal group size $N_{min}$, Time constant $t_{c}$, Participation cost $X_g$, Competence Asset $C_i$, Protocol Treasury $T$, Minimal turn count ${M, M > 2}$
+\State \textbf{Process:}
+\Procedure{Preparation}{}
+    \State Instance is created at timestamp $t_0=t$, with creators personal join requirements $X_a$
+    \State Participants join the group and lock in a commitment: $N_{min} \times (X_g+X_a) \rightarrow T$
+    \State Joining period ends at $t_1  \ge t_c + t_0$
+\EndProcedure
+\Procedure{FirstTurn}{}
+    \While{$t_1 + t_c \ge t$}
+        \If{new Proposal}
+        \State Record ${P_i}$
+        \State Record $i$
+        \EndIf
+    \EndWhile
+    \If{Group is full or joining timeout}
+        \State Members exchange encrypted proposals (MPC).
+    \EndIf
+\EndProcedure
+\Procedure{DecryptProposals}{}
+    \If{Timeout or all proposals received}
+        \State Members decrypt proposals using threshold encryption.
+    \EndIf
+\EndProcedure
+\Procedure{RegularTurn}{}
+    \State Submit new encrypted proposals.
+    \State Submit encrypted votes and zk-proof of valid vote.
+\EndProcedure
+\Procedure{CalculateRoundScores}{}
+    \If{Round ends or all votes \& proposals submitted}
+        \State Use TSS cryptography to decrypt everything.
+        \State Calculate round scores.
+    \EndIf
+\EndProcedure
+\Procedure{RepeatUntilXProposals}{}
+    \State Repeat steps 3-5 until a total of X proposals.
+\EndProcedure
+\Procedure{FinalizeRankings}{}
+    \State Count total votes and sort proposals.
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
