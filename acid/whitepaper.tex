@@ -17,6 +17,7 @@
 \usepackage{algpseudocode}
 \usepackage{afterpage}
 \usepackage{placeins}
+\usepackage{tikz}
 
 \lstset{
   language=[LaTeX]TeX,
@@ -237,38 +238,78 @@
         \textbf{Centralization resilient}: Protocol should be designed in a way that over time dependency on single actors shall be reduced, Nakamoto coefficient shall increase, promoting collaboration over competition for those aligned in automatic manner. \\
         \textbf{Multidimensionality}: Protocol should enable multidimensional indexes and foundational models to be built on top of it, as well as promote working groups that can be more operative than a main governing body. At the global scale this should support automatically combining multiple DAOs in superset and enable establishing data, asset and control specific flows-controls.\\
         \textbf{Rational}: Protocol should be designed in a way that any network node must be seen as rational-agent which may diverge from collective interest or collude with others and still not able to reach  influence over the system beyond what protocol accounts for.
+    \\
+
+        \paragraph*{}
+        In order to define quantitative metrics over these declared values in a most generic way, let's introduce the concept of a agent alignment vector, denoted as  $\vec{A}$. This vector captures the collective preference of the group that can be seen as united entity within a given context, such as publicly announced topic, or any other group member specific property. We can denote such context as global alignment vector as:
+        \begin{equation}
+            \label{eq:glob-align}
+            \vec{G} = \sum_{i=0}^{N_{i}} \vec{A_i} + \vec{C}
+        \end{equation} Where $N_i$ denotes total number of such groups at given time and $\vec{C}$ is some predefined context constant value.
+        If we assume numerous such possible contexts denoted ${N_j}$, then we also can denote an universal alignment vector describing every possible context $j$ as:
+        \begin{equation}
+            \vec{U} = \sum_{j=0}^{N_{j}} \vec{G_j}
+        \end{equation}
+
+        To define a performance criteria, we can denote time dependency for these vectors, to underscore their ever changing nature of decision making:
+         \begin{equation}
+            \vec{U(t)} = \sum_{j=0}^{N_{j}} \vec{G_j(t)} = \sum_{j=0}^{N_{j}}(\sum_{i=0}^{N_{i}} \vec{A_{ij}(t)} + \vec{C_j})
+        \end{equation}
+        In such case, a prompt decision making process,  describing ability for high performance can be seen as derivate function of time:
+        \begin{equation}
+        \frac{d\vec{U}}{dt} = \sum_{j=0}^{N_{j}} \frac{d\vec{G_j}}{dt} = \sum_{j=0}^{N_{j}} (\sum_{i=0}^{N_{i}} \frac{d\vec{A_{ij}}}{dt} + \vec{C_j})
+        \end{equation}
+
+        Deducting of our requirements, the mission alignment is can be seen as stability of $\vec{U}(t)$ and $\vec{G_j}(t)$ over time, multidimensionality is quantified by ${N_j}$,  participation rates by $N_i$ while centralization by standard deviation of the magnitudes of a set of vectors $\vec{A_{ij}}(t)$ and can be denoted as follows:
+
+        \begin{equation}
+            \sigma_{\|\vec{A_{ij}}(t)\|} = \sqrt{\frac{1}{N_{i}N_{j}} \sum_{j=0}^{N_{j}} \sum_{i=0}^{N_{i}} \left( \|\vec{A_{ij}}(t)\| - \mu \right)^2}
+            \end{equation}
+
+            where $\|\vec{A_{ij}}(t)\|$ represents the magnitude of the vector $\vec{A_{ij}}(t)$, and $\mu$ is the mean magnitude of the vectors, given by:
+
+            \begin{equation}
+            \mu = \frac{1}{N_{i}N_{j}} \sum_{j=0}^{N_{j}} \sum_{i=0}^{N_{i}} \|\vec{A_{ij}}(t)\|
+            \end{equation}
+
+        Assuming that $\vec{A}$ represents groups interest, it can be further broken down as the aggregate of individual preference vectors $\mathbf{P_i}$. In such, a group ideal delegate can be defined as a participant whose $\mathbf{P_i}$ aligns most closely with $\vec{A}$.
+        This alignment maximizes their positive contribution to the overall group preference and can be quantified using measures like cosine similarity or Euclidean distance between the participant's and the group's vectors.
+        The protocol's inclusive and autonomous requirement nature allows to envision that even a fully stochastic process, where participants could be assumed to make random decisions regarding tournament participation, proposals, and voting, an $\vec{A}$ could be defined.
+        However, we postulate the existence of an underlying, unknown global alignment vector $\mathbf{G(t)}$, that reflects the overall preferences of all protocol participants across time. \\
+        This concept accommodates the diverse preferences of all participants, even in the boundary case of entirely random decisions.
+        In this fully stochastic scenario, the group's alignment is characterized by entropy, a measure of randomness. The Euclidean distance of each member's rank from the most probable rank for a random participant can serve as a measure of their capacity for random decision-making. \\
+        Conversely, in non-stochastic processes, participants exhibit alignment towards an arbitrary direction, shaped by their free-will choices to join specific groups and context. The protocol goals hence can be seen as to quantify these vectors and ensure their desired properties.
 
 
         \subsection{Market value of competence}
         \label{sec:market-values}
-        In order to support solving all of the objectives, we propose to specify, that outcome of protocol is a transferrable asset, that can effectively tokenize the competence rating of bearer. \\
+        In order to support solving all of the objectives, we propose to specify, that outcome of protocol is a transferrable asset, that can effectively tokenize the competence rating of bearer. With this, $\vec{G_j}$ and $\vec{A_{ij}}$ can be expressed as such, introducing specific values locked by protocol context $TVL_{Gj}$ and ${TVL_{Aij}}$ accordingly.\\
         Transferability is an important aspect as this allows free market rules to establish and accomplish multiple goals, starting with agent rational actions: even concepts of corruption and collusion can be seen as game-theoretic \cite{Macrae1982}, are not necessarily bad \cite{Leff1964}, and can be seen trough definition of an intrinsic value of any transferable asset. Other words saying, we see personal competences in CPSS frameworks useful as a market value, that may be useful to trade. \\While this can be argued as a controversial statement, we can discuss that in the real world competence indeed is often traded in form of a investing time and money in education, relationships, that eventually form a social ranking. Since we declare as a requirement to have a compounding resistance, it forms a solid basis for building economic models that penalize competence-market participants heavy enough,  so that competence is not traded in a way that it can be easily bought by a single entity.\\ Transferability of value can be used by other protocols to define staking commitments, similarly as PoS consensus mechanisms do, eventually forming a rational economic model that would incentivize any participant to maintain his rating asset.\\
         Nevertheless, for many software defined use cases of ownership within Account Abstraction\cite{Qin2023} model, the assets could be made non-transferable, and still be used as a proof of competence of a specific account.\\
-        Providing a influence to compounding becomes a critical aspect part for such protocol, since we are relying to a free-market values and principally do not require any specific identity solution as a dependency to this protocol.
-        Our foundational model for this resistance lies in extending  ~\ref{sec:protocol_origins} idea, to introduce \textit{ranking ladder} (Fig. \ref*{fig:game-connection}) that lets game winner to participate in next game with higher level of rewards only if it holds an asset of rank below. Each time participant produces a next level, previous rank asset balance is removed, hence \textit{exchanging} asset to a rank of a next ladder level. This expected to create non-linear friction towards any sybil attack, allowing competent actors who are willing spend their time to participate in the game to be rewarded with advantage over any colluding company that is trying to game the system. \input{ladder.tex}
+        Providing a resistance to influence compounding becomes a critical aspect part for such protocol, since we are relying to a free-market values and principally do not require any specific identity solution as a dependency to this protocol.
+        Our foundational model for this resistance lies in extending  ~\ref{sec:protocol_origins} idea, to introduce \textit{ranking ladder} (Fig. \ref*{fig:game-connection}) that lets game winner to participate in next game with higher level of rewards only if it holds an asset of rank below. Practically meaning that
+        \begin{equation}
+            \vec{A_{ij}}(t) = f(\vec{A_{ij}}(t-1)) \cdot H(t)
+        \end{equation}
+        Is a step function, where increase in
+        In tokenized asset model, we can achieve this by defining protocol rules, that each time participant produces a higher rating, resulting higher $\vec{A_{ij}}(t)$ , previous rating tokenized element shall be required to remove, hence we defined \textit{exchanging} process for an asset to a rating of a next ladder level. This expected to create non-linear friction towards any sybil attack, allowing competent actors who are willing spend their time to participate in the game to be rewarded with advantage over any colluding company that is trying to game the system. \input{ladder.tex}
 
         If each game requires a commitment, such as a participation fee, we can demonstrate that the proposed ranking ladder introduces a desired non-linear compounding friction for potential malicious actors attempting to manipulate the system.
 
-        To illustrate this, let's introduce the concept of a agent alignment vector, denoted as  $\mathbf{V_a}$. This vector captures the collective preference of the group within a given context, such as publicly announced topic, or any other group member specific property. In the absence of collusion or manipulation, a blind proposing-voting process is inherently probabilistic, where the inverse of magnitude $|\mathbf{V_a}|$ quantifies the resistance to entropy inherent in participants' choices.
+        To illustrate this, let's use the concept of a agent alignment vector introduced in (\ref*{eq:glob-align}). In the absence of collusion or manipulation, a blind proposing-voting process is inherently probabilistic, where the inverse of magnitude $|\vec{A}|$ quantifies the resistance to entropy inherent in participants' choices.
 
-        Assuming that the fair agent alignment vector $\mathbf{V_a}$  represents the aggregate of individual preference vectors $\mathbf{P_i}$, a fair winner is the participant whose  $\mathbf{P_i}$ aligns most closely with $\mathbf{V_a}$. This alignment maximizes their positive contribution to the overall group preference and can be quantified using measures like cosine similarity or Euclidean distance between the participant's and the group's vectors.
-        The protocol's inclusive and autonomous nature allows for a fully stochastic process at the lowest ladder level. Here, participants are assumed to make random decisions regarding tournament participation, proposals, and voting.
-        However, we postulate the existence of an underlying, unknown global alignment vector $\mathbf{G(t)}$, that reflects the overall preferences of all protocol participants across time. This concept accommodates the diverse preferences of all participants, even in the boundary case of entirely random decisions.\\
-        In this fully stochastic scenario, the group's alignment is characterized by entropy, a measure of randomness. The Euclidean distance of each member's rank from the most probable rank for a random participant can serve as a measure of their capacity for random decision-making.
-
-        Conversely, in non-stochastic processes, participants exhibit alignment towards an arbitrary direction, shaped by their free-will choices to join specific tournaments. The protocol aims to quantify this alignment vector.
 
         Any colluding actors attempting a Sybil attack are effectively trying to manipulate this global alignment vector $\mathbf{G(t)}$. Given our earlier requirements for an ideal protocol, it should encourage the formation of small groups while maintaining a large overall active participant count. This breakdown into smaller groups serves as a pre-alignment mechanism, as participants willingly choose to collaborate. In this context, any group can be seen as colluding, with Sybil attacks representing an extreme case of such alignment.
 
-        Therefore, from the outset, each group is inherently aligned towards a specific direction, determined by the free will of its members to participate in a particular tournament. This pre-alignment introduces a degree of predictability, quantified by $|\mathbf{V_a}|$, into an otherwise stochastic process.
+        Therefore, from the outset, each group is inherently aligned towards a specific direction, determined by the free will of its members to participate in a particular tournament. This pre-alignment introduces a degree of predictability, quantified by $|\vec{A}|$, into an otherwise stochastic process.
 
 
-        If there is a game fee, that creates participation resistance, we can say that achieving a specific level of competence cost is $\$C_i$ and can be expressed as a function of level of competence $i$ and game fee $X_g$ and mathematical expectation for costs achieving specific rank via sybil attack described as
+        If there is a game fee, that creates participation resistance, we can say that achieving a specific level of competence cost is $\$C$ and can be expressed as a function of level of competence $i$ and game fee $X_g$ and mathematical expectation for costs achieving specific rank via sybil attack described as
         $$\mathbb{E}[\$C(i)] = X_g \cdot \mathbb{E}[N_{\text{sybils}}(i)]$$
 
         % $$\mathbb{E}[\$C(i)] = X_g*\mathbb{E}[{N_{sybils}(i)}]$$
 
-        Where $N_{sybils}(i)$ is a number of sybil accounts required to win a game of rank $i$. Due to tournament fragmentation, an attacker mixing Sybil accounts with fair players must strategically allocate Sybils across games for cost efficiency. However, this is challenging due to each group's unique $\mathbf{V_a}$, finding suitable games for manipulation is difficult.  Meanwhile, from a deductive reasoning, the distance between fair actors' preferences $P_i$ and $\mathbf{G(t)}$ should diminish as their rank increases, reflecting the protocol's design of identifying participants alignment.
+        Where $N_{sybils}(i)$ is a number of sybil accounts required to win a game of rank $i$. Due to tournament fragmentation, an attacker mixing Sybil accounts with fair players must strategically allocate Sybils across games for cost efficiency. However, this is challenging due to each group's unique $\vec{A}$, finding suitable games for manipulation is difficult.  Meanwhile, from a deductive reasoning, the distance between fair actors' preferences $P_i$ and $\mathbf{G(t)}$ should diminish as their rank increases, reflecting the protocol's design of identifying participants alignment.
 
         This means that for any protocol participant, confidence over group conducting a sybil attack will increase as level of games increase, hence they will be more likely to refuse joining games with such, resulting $$\lim_{i \to \infty} \frac{\mathbb{E}[N_{\text{sybils}}(i)]}{i} = N_{\text{min}}$$ Where $N_{min}$ is amount of peers required to join the game. Hence, a straightforward Sybil attack scenario where the attacker attempts to manipulate the protocol by flooding games with multiple Sybil accounts may be analyzed.
          Then for an attacker who tries to conduct a sybil attack it would cost
@@ -284,19 +325,18 @@
 
 
         \subsection{Composable architecture}
-
         As evidenced by The DAO hack\cite{Liu2021} a single entity governing on-chain operations creates a central point of failure. Even with a theoretically perfect design, a single governing body struggles to match the versatility, adaptability of smaller groups is desired \cite{Buterin22}.  This highlights the necessity of multidimensionality to achieve a robust, global DAO concept while maintaining high performance.
 
+        Composable architecture enables multiple independent DAOs $\mathbf{G}$ to coexist, while free market values encourage convergence when their goals align (section \ref{sec:market-values}). Practically, this means multiple protocol instances $j$, can exist, each with its own initiator, subject, and global alignment vector split in numerous individual pieces that can be expressed as $\mathbf{G_j}$. \\
 
-        Composable architecture enables multiple independent DAOs $\mathbf{G(t)}$ to coexist, while free market values encourage convergence when their goals align (section \ref{sec:market-values}). Practically, this means multiple protocol instances $j$, can exist, each with its own initiator, subject, and global alignment vector $\mathbf{G_j}$. \\
-
-        A non-permissive rating system can amplify voting power or grant specific permissions within a DAO. A global, distributed DAO emerges as the sum of all $G_j(t)$. Participants gain subject-specific competence $C_{i,j}$ leading to a subject-specific DAO with governance power $P_g$ defined solely by competence: $P_g = f(C_{i,j})$. \\
-        Existing DAO frameworks using fungible tokens fit this model, as their governance token can be derived from $C_{i,j}$ through a unidirectional asset exchange. This creates an exit strategy for high-scoring participants, allowing them to reset their competence score for governance power in the underlying DAO.
-        Due to the diminishing number of participants at higher ranks, exponential rewards are necessary to prevent stagnation and incentivize participation. The governance power function must also consider sybil attacks: $P_g = f(C_{i,j})$ would have to be exponential to ensure proportional rewards with a straightforward sybil attack case: $$P_g(i,j) \propto  X_{g_j}*\mathbb{E}[N_{sybils_j}]^{i_j}$$
-        If a group of high-scoring participants exits in such a way, they're likely to gain significant power in the underlying DAO, whose reputation is established from past rounds. This group $V_{aj}$ becomes a practical representation of $G_j(t)$ in DAO form at particular $t$ when they have quorum. We intentionally denote this as function of time as this would not stop the competence minting for other participants. This action also woud not affect already established possible uses for competence rating system with, as if such participant group would even be able to define $G_j(t)$ in favor of their specific subset $V_{aj}$, they would not be able to affect in any means competence systems depending on$C _{i,j}$ due to unidirectional control flow with exception of the fact that these participants $C_{i,j}$ value is zeroed in favor of DAO governance perspective.
+        A non-permissive rating system can amplify voting power or grant specific permissions within a DAO. A global, distributed DAO emerges as the sum of all $G_j$. Participants gain subject-specific competence $C_{j}$ leading to a subject-specific DAO with governance weights $W_j$ defined solely by competence identification process: $W_j = f(C_{j})$. Since by protocol design $C_j=f(t_c)$, the resulting weights are also function of time $W_j=f(t_c)$\\
+        Existing DAO frameworks using fungible tokens fit this model, as their governance token can be derived from $C_{j}$ through a unidirectional asset exchange. Such asset separation creates an exit strategy for high-scoring participants, allowing them to reset their competence score in favor of governance power in the underlying DAO.
+        Due to the diminishing number of participants at higher ranks, exponential rewards are necessary to prevent stagnation and incentivize participation. The governance power function must also consider sybil attacks: $P_g = f(C_{j})$ would have to be exponential to ensure proportional rewards with a straightforward sybil attack case: $$P_g(i,j) \propto  X_{g_j}*\mathbb{E}[N_{sybils_j}]^{i_j}$$
+        If a group of high-scoring participants exits in such a way, they're likely to gain significant power in the underlying DAO, whose reputation is established from past rounds. This group $V_{aj}$ becomes a practical representation of $G_j(t)$ in DAO form at particular $t$ when they have quorum. We intentionally denote this as function of time as this would not stop the competence minting for other participants. This action also woud not affect already established possible uses for competence rating system with, as if such participant group would even be able to define $G_j(t)$ in favor of their specific subset $V_{aj}$, they would not be able to affect in any means competence systems depending on$C _{i,j}$ due to unidirectional control flow with exception of the fact that these participants $C_{j}$ value is zeroed in favor of DAO governance perspective.
         Nevertheless, such quorum group can dictate policies, acting as a "managerial body" for the specific $G_j$. This group is incentivized to increase the market value of their exchanged governance power, requiring their DAO to generate additional intrinsic value. \\
-        The Nakamoto coefficient in such a system increases over time. As the organization gains value, governance power inflation is expected. Early, high-ranking participants can maintain power by strategically purchasing lower-ranking members' $C_{i,j}$ to prevent others from gaining higher ranks. However, they must remain active to avoid being displaced by inflation and new participants.
+        The Nakamoto coefficient in such a system increases over time. As the organization gains value, governance power inflation is expected. Early, high-ranking participants can maintain power by strategically purchasing lower-ranking members' $C_{j}$ to prevent others from gaining higher ranks. However, they must remain active to avoid being displaced by inflation and new participants.
 
+        \input{exit.tex}
 
         A composable DAO framework emerges when a high-scoring group managing a DAO votes to deploy another autonomous competence protocol with a subsidiary DAO, adding both to a new multisignature wallet. This effectively splits the original organization, with asset ownership linked to the original but the Nakamoto coefficient accounting for both governing bodies. The derived protocol participation cost may be derived from parent DAO  $ \grave{X}_{gj}$ to $G_j$, creating a network of interconnected DAOs.
 
