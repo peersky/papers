@@ -2,55 +2,55 @@
 \usetikzlibrary{arrows.meta, positioning}
 
 \begin{figure*}
+    \centering
 
-\begin{tikzpicture}[
-    node distance=2cm,
-    every node/.style={draw, align=center},
-    arrow/.style={-{Latex[length=3mm, width=2mm]}, thick}
-]
+    \label{figure:competence-transfer}
+    \begin{tikzpicture}[
+        node distance=2cm,
+        every node/.style={draw, align=center},
+        arrow/.style={-{Latex[length=3mm, width=2mm]}, thick}
+        ]
 
 
-% Single block for the game
+        % Single block for the game
 
-% Nodes
-\node (competence) {Competence \\ $C_{j}$};
-% \node[draw, rectangle, minimum width=7.5cm, minimum height=0.5cm, below=of competence] (Game) {r2 g6};
-% Bottom level blocks (5 participants)
-\foreach \x in {1,...,5} {
-    \node[draw, rectangle, minimum width=1cm, minimum height=0.5cm, below=of Game, xshift=(\x-5)*1.2cm] (P-\x) {};
-    % Add "Rank X" text inside each block
-    \node [below=of Game, xshift=(\x-5)*1.2cm] {r1 g\x};
-}
-\node (exchange) [right=of competence] {Unidirectional \\ Asset Exchange \\ $P_g = f(C_{j})$  };
+        % Nodes
+        \node (competence) {Competence \\ $R$};
+        % \node[draw, rectangle, minimum width=7.5cm, minimum height=0.5cm, below=of competence] (Game) {r2 g6};
+        % Bottom level blocks (5 participants)
 
-\node (DAO) [right=of exchange] {DAO \\ ${G_j(t)} = \sum_{i=0}^{i_{\text{max}}} P_g$ };
-\node (quorum) [below=of DAO] {Quorum Group \\ $V_{aj}$};
-\node (dao) [below=of quorum] {DAO \\ $G_j(t)$};
-\node (market) [below=of dao] {Market Value \\ Increase};
+        \node (exchange) [right=of competence] { $W = f(R)$  };
 
-% Connect participants to the game
-\foreach \x in {1,...,5}
-    \draw[->] (P-\x) -- (competence);
+        \node (DAO) [right=of exchange] {DAO \\ ${G} = \int{W}dt$ };
+        % \node (quorum) [below=of DAO] {Quorum Group \\ $V_{aj}$};
+        % \node (dao) [right=of exchange] {DAO \\ $G_j(t)$};
+        % \node (market) [below=of DAO] {Market Value \\ Increase};
 
-% Arrow pointing upwards from the top block with text "to r3"
-% \draw[->] (Game.north) -- ++(0,1) node[above] {to r3 g31};
+        % Connect participants to the game
+        % \foreach \x in {1,...,5}
+        % \draw[->] (P-\x) -- (competence);
 
-% Arrows
-% \draw [arrow] ()
-\draw [arrow] (competence) -- (exchange);
-\draw [arrow] (exchange) -- (DAO);
-\draw [arrow] (DAO) -- (quorum);
-\draw [arrow] (quorum) -- (dao);
-\draw [arrow] (dao) -- (market);
+        % Arrow pointing upwards from the top block with text "to r3"
+        % \draw[->] (Game.north) -- ++(0,1) node[above] {to r3 g31};
+
+        % Arrows
+        % \draw [arrow] ()
+        \draw [arrow] (competence) -- (exchange);
+        \draw [arrow] (exchange) -- (DAO);
+        % \draw [arrow] (DAO) -- (quorum);
+        % \draw [arrow] (quorum) -- (dao);
+        % \draw [arrow] (dao) -- (market);
 
 
 
-% Labels
-\node [above=0.5cm of competence] {Competence Minting};
-\node [above=0.5cm of DAO] {Governance Power Function};
-\node [above=0.5cm of quorum] {Quorum Group Formation};
-\node [above=0.5cm of dao] {DAO Representation};
-
-\end{tikzpicture}
+        % Labels
+        \node (Staking)[above=0.5cm of competence] {Providing services \\ By staking individual \\ Competence};
+        \draw [arrow] (competence) -- (Staking);
+        \node (Managing) [above=0.5cm of DAO] {Managing strategic \\  "experts guild" goals};
+        \draw [arrow] (DAO) -- (Managing);
+        % \node [above=0.5cm of quorum] {Quorum Group Formation};
+        % \node [above=0.5cm of dao] {DAO Representation};
+    \end{tikzpicture}
+    \caption{Competence transfer to DAO voting weights}
 
 \end{figure*}
