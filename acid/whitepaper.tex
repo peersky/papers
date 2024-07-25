@@ -243,7 +243,7 @@
         \\
 
         \paragraph*{}
-        In order to define quantitative metrics over these declared values in a most generic way, let's introduce the concept of a agent alignment vector, denoted as  $\vec{A}$. This vector captures the collective preference of the group that can be seen as united entity within a given context, such as publicly announced topic, or any other group member specific property. We can denote such context as global alignment vector as:
+        In order to define quantitative metrics over these declared values in a most generic way, we will use vector space modelling. Such social embedding is used to refer to the representation of individuals or groups as vectors within a social network. Let's introduce the concept of a agent alignment vector, denoted as  $\vec{A}$. This vector captures the collective preference of the group that can be seen as united entity within a given context, such as publicly announced topic, or any other group member specific property. We can denote such context as global alignment vector as:
         \begin{equation}
             \label{eq:glob-align}
             \vec{G} = \sum_{i=0}^{N_{i}} \vec{A_i} + \vec{C}
@@ -333,6 +333,7 @@
             This means that for any protocol participant, confidence over group conducting a sybil attack will increase as level of games increase, hence they will be more likely to refuse joining games with such, resulting
             \begin{equation}
                 \lim_{R \to \infty} \frac{\mathbb{E}[N_{\text{sybils}}(R)]}{R} = N_{\text{min}}
+                \label{eq:limit-nmin}
             \end{equation} Where $N_{min}$ is amount of peers required to join the game. Hence, a straightforward Sybil attack scenario where the attacker attempts to manipulate the protocol by flooding games with multiple Sybil accounts may be analyzed.
             Then for an attacker who tries to conduct a sybil attack it would cost
             \begin{equation}
@@ -345,6 +346,8 @@
             \begin{equation}
                 TVL << \$R
             \end{equation}
+
+            Total value locked must be substantially lower then a cost for obtaining rank due to reason that empirical studies are needed to see how fast will required sybil count converge (Eq. \ref{eq:limit-nmin}) in practice. which strongly depends on how much stochastic process is inherit in such voting system. Additionally sybil resistance will benefit greatly from use of quadratic voting systems which already shown to be helpful in blockchain governance field \cite{Buterin20}\cite{Benhaim2024}.
 
 
             \subsection{Time constraint}
@@ -398,23 +401,16 @@
             These measures aim to mitigate the Halo effect \cite{Verhulst2010}, where judgments are influenced by personalities rather than ideas, and deter strategic voting by increasing the complexity of coordinated attacks against competent proposals. The de-personalized voting process aims to foster a fairer evaluation environment by focusing on the merit of the proposals themselves.
             % \end{multicols}
 
-            \paragraph{}
+            % \paragraph{}
             % \begin{multicols}{2}
 
             % Concluding this section, we advocate that multidimensionality and free-market values will provide a way to ensure high participation rates, as participants will be able to participate in the decision-making process in a category that they are interested in, grouping with like-minded people in the fields they are competent in, and lastly - are rewarded for being in.
             % With a ranking ladder, and a multidimensional representation, this can be seen as a global framework for building education and helping young talents to discover their path by observing very well quantized data on their progress. \\ We may also suggest that this protocol functionally may be presented as simply a new way of talking, where each input - seen as valuable idea, and each vote - seen as a valuable feedback, and each game final, as actionable result.\\
             % In order to support such high participation rates, the user experience must be ensured as simple as possible, and the application must be designed in a way that it is easy to use and understand. In order for that, we require to have extensive metadata available for user experience purpose by the protocol as key requirement. For example, when participant sends in encrypted vote, or proposal - protocol shall be able to publicly announce that particular participant has submitted a vote, while not revealing the content of the vote nor the linkage to it after content is revealed for voting.\\
 
-
-
-
-
             % Write your conclusion here
             \section{Implementation}
-            Protocol particular implementation may vary depending on environment and requirements, however we can outline a generic implementation that can be used as a reference for further development. Following reference describes implementation as a smart contract on Ethereum Virtual Machine compatible network. \\
-
-
-
+            Protocol particular implementation may vary depending on environment and requirements, however we can outline a generic implementation that can be used as a reference for further development. Following reference describes implementation as a smart contract on Ethereum Virtual Machine compatible network.
             \paragraph{Rating asset}
             is semi-fungible tokenized asset contract, such as defined by ERC1155\cite{EIP1155} interface standard and with emission permit granted only to contract(or contracts), that implements autonomous rating identification. Participation fee $X_g$ is expressed as ERC20\cite{EIP20} token interface which may represent a overseeing organization governance power.
             Privileged methods available to rating identification contracts: minting new token, burning existing token from owners balance.
@@ -428,11 +424,12 @@
             \paragraph{DAO, Governance Token \& Multisig}
             can be used from already established frameworks for token based voting may be used. Various frameworks for DAOs are available\cite{AragonOSx}\cite{OpenZeppelinGovernor}, as well as industry standard multisignature wallet\cite{GnosisSafeMultisig}. In standard implementation we suggest requiring $2/3$ quorum threshold on the multisignature wallet.
 
-        \paragraph{Game Master} is needed to provide privacy. The game master is responsible for collecting proposals and announcing fact of activity without disclosing the actor, then posting them as batch to a competence identification contract, collecting votes in a similar manner, without tell nor who, nor for whom votes, and finally revealing the results.\\ Multi-party computation, network the initial "Game Master" is potential failure point as he may disclose or even attempt to corrupt data. Ideal solution can be achieved by multiparty computation, where every participant runs a network that can sign transactions with encrypted data, and decrypt it. Fully on-chain fully-homomorphic encryption promised by emerging blockchains poses interest\cite{Fhenix}. In our most simple implementation a trusted server is used as privacy proxy.
+        \paragraph{Game Master concept} is needed to provide privacy. The game master is responsible for collecting proposals and announcing fact of activity without disclosing the actor, then posting them as batch to a competence identification contract, collecting votes in a similar manner, without tell nor who, nor for whom votes, and finally revealing the results.\\ This is potential failure point as such agent may disclose or even attempt to corrupt data. Whilst in our simple implementation a trusted backend server is used, an ideal solution can be achieved by multiparty computation, where every participant seen as network participant that can sign transactions with encrypted data, and decrypt it according to the protocol requirements. Fully on-chain fully-homomorphic encryption promised by emerging blockchains poses interest\cite{Fhenix}.
 
 
         % Write your results here
-        \section{Case Study: A Music-Sharing Game}
+        \section{Case Study}
+        \subsection{Original Concept: A Music-Sharing Game}
         To gather empirical data, we analyzed a group's activity and historical records in a music-sharing game \cite{DariusYoutube}. Participants share YouTube music clips, forming playlists. From 2017 to 2023, 17 games were played, each averaging 13 turns, 8 participants, and 3 months duration. Roughly 1700 proposals and votes were recorded, with a 100-song playlist limit per game.\\
         Over the years, 34 participants joined, 22 completing at least one tournament and 15 completing at least two. Of the original 6 players, 3 remain active, with 8 active users in the latest game. Non-voting instances were negligible, below 5\% of all votes. \\
         Despite lacking explicit incentives and requiring effort as occasional game masters, participation rates were remarkably high:
@@ -441,24 +438,39 @@
             \item \textbf{User retention} for three month period of 65\%
             \item \textbf{User retention} for two tournaments and roughly six month of 44\%
             \item \textbf{User retention} after 72 month of 9\%
-            \item Average of \textbf{8 proposals and votes per participant} per annum
+            \item Average of \textbf{8 proposals and votes per user} per annum
         \end{itemize}
 
         The low absolute numbers however are explainable by user complex manual score calculation process and closed community by itself which never oriented itself towards big growth and hence let to do assertion that could be even higher on a well designed automated protocol.
 
         We also observed that collected playlists, ordered by high-score compositions, are of high quality and form a good representation of participants' preferences, while the winner of the tournament is often a participant that is able not simply propose a popular song, but to propose a song that is liked by many participants, including such aspects that participants will likely vote songs they hear for the first time (original ideas).
 
+        \subsection{Prototype study}
+        We wrote a simple implementation of such game that allows ease game process with game automation. Two games games were conducted, the random participants were invited, including original players and random people who did not know each other. Game rules and requirements were close to original, participants send URLs for music on youtube with composition length of no more than 10 minutes and had to listen for all of them. Quadratic voting system was used, allowing users to spend 14 vote credits were given to spend. Only notable difference  was that for sake of design simplification, the total playlist length was replaced with fixed round count.\\
+        Participants were given no incentives, and most of the group had no prior blockchain experience nor significant interest in it.\\
+        Based on conducted experience, participants were asked to give general feedback, questions asked was possible to rate from 0 to 5. \\Overall experience was rated at 88\%, while the created playlists were rated at 92\%.\\ 80\% respondents answered positively on question \textit{"Do you feel you got to know people better after playing this game?"}. \\Question \textit{"How likely you would be willing to play such game of music with your friends or family?"} was rated at 84\%.\\
+        Participants also proposed various different game topics and generally expressed interest. \\When asked \textit{"If you missed any turn to vote or propose, what were main causes"}, all respondents answered that they enjoyed the process however lacked time to listen all of the compositions.
+
+        \subsection{Empathic Agenda and AI Applications}
+        The protocol essentially establishes a framework for rating not only participants but also ideas themselves, decoupled from personalities. Its continuous nature enables deeper alignment among participants by utilizing previous round results as feedback from their group. This fosters empathy between participants as they iteratively refine their understanding of collective preferences.
+
+        Beyond personal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS). It enables benchmarking AI agents participating in such games, with feedback and historical data forming a robust, personalized machine learning framework.
+
+        Depending on the application, the outcomes of rated proposals have diverse use cases. Top-scoring proposals can automate execution processes, such as formulating rated agendas (e.g., playlists for public events) or pre-assigned weights for voting lists.
+
+        Furthermore, this approach extends to mission-specific tasks like code development. Programmers can iteratively share, vote on, and refine code until a deadline, with later iterations potentially weighted more heavily.
+
         \section{Conclusion}
 
-        In this paper, we have explored the implementation and empirical analysis of a music-sharing game within a decentralized autonomous organization (DAO) framework. Our study demonstrates that high participation rates and user retention can be achieved even without explicit incentives, highlighting the potential for community-driven engagement in decentralized systems.
+        In this paper, we have generalized proof-based consensus mechanisms for social network interactions by viewing any network node as a rational agent that may diverge from collective interest individually or collude with others.
 
-        We have shown that the competence of participants can be effectively measured and utilized to drive decision-making processes within DAOs. By leveraging historical data and user interactions, we can create a robust mechanism for governance that aligns with the collective interests of the community.
+        We've analyzed needs for DAOs and existing use cases and formulated a multi-entity DAO framework proposal that may help solving centralization and participation problems in DAOs.
 
-        Furthermore, our findings suggest that integrating such competence-based protocols can enhance the scalability and security of DAOs. This approach not only mitigates the risks associated with Sybil attacks but also ensures that decisions are made by qualified participants, thereby fostering a more resilient and trustworthy governance model.
+        Integrating competence-based consensus mechanisms within DAOs presents a promising path towards more effective and decentralized governance. By leveraging the collective intelligence and active participation of community members, we can build more robust and adaptive decentralized organizations capable of addressing complex challenges in a trustless environment.
 
-        As DAOs continue to evolve, the need for sophisticated governance mechanisms becomes increasingly critical. Our proposed methodology offers a promising direction for future research and development, aiming to bridge the gap between automated protocols and human-centric decision-making processes.
+        We've also indicated that further work is needed to conduct larger scale studies to refine safe thresholds and further explore use cases.
 
-        In conclusion, the integration of competence-based consensus mechanisms within DAOs presents a viable path towards more effective and decentralized governance. By harnessing the collective intelligence and active participation of community members, we can build more robust and adaptive decentralized organizations capable of addressing complex challenges in a trustless environment.
+
 
         \clearpage
     \end{multicols}
