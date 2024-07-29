@@ -46,8 +46,7 @@
 
 
     \begin{abstract}
-        This paper introduces a novel protocol for establishing ranking systems in decentralized autonomous organizations (DAOs) and consensus-building protocols. By leveraging cryptographic advancements and social science insights, the protocol enables autonomous decision-making in trustless environments based on agent interactions. We analyze a real-world precedent, a music-sharing game, demonstrating high participation rates even among non-technical users. Our proposed implementations focus on defining interoperable and liquid voting weights for participants in both computational and social networks. We also discuss potential economic models and game-theoretic implications of such competence frameworks. This research aims to address key challenges in autonomous governance, such as low participation, centralization, and lack of commitment mechanisms, by fostering a more engaging, equitable, and secure decision-making process.
-
+        This paper introduces a novel protocol for establishing ranking systems in decentralized autonomous organizations (DAOs) and consensus-building protocols. Leveraging cryptographic and social science insights, the protocol enables autonomous decision-making in trustless environments based on agent interactions. A real-world case study demonstrates the protocol's potential to achieve high participation and retention rates, even without explicit incentives. The proposed protocol addresses key challenges in autonomous governance, such as low participation, centralization, and lack of commitment mechanisms, by fostering a more engaging, equitable, and secure decision-making process. It also has potential applications in various domains beyond DAOs, including decentralized social networks, academic research, and online education.
     \end{abstract}
     \begin{multicols}{2}
 
@@ -56,9 +55,16 @@
         The quest for consensus, a cornerstone of collective decision-making, has deep historical roots. From the ancient Chinese concept of \textit{zhongyong} {\CJKfamily{bsmi}
             中庸}, advocating for moderation and balance in governance, to the Roman Republic's emphasis on \textit{senatus consulta} (senate decrees) reached through deliberation and compromise, societies have long grappled with the challenge of aligning diverse perspectives towards a common goal. The study of these historical precedents continues to inform modern approaches to consensus \cite{Andersen2019} \cite{Frederic2014}. \\
         The pursuit of consensus, has gained renewed significance in the digital age. Originating from the Bitcoin whitepaper \cite{Satoshi}, blockchain technology fundamentally seeks consensus and establishes trustless systems through cryptographic signatures. While significant progress has been made in developing efficient Byzantine Fault Tolerance (BFT) algorithms for reaching consensus on verifiable data \cite{Genrui2023}, the challenge of achieving consensus on subjective or non-deterministic matters within DAOs \cite{Hassan2021} remains a complex issue \cite{Shuai2019}\cite{Rainer2023}. This has led some researchers to question the ability of autonomous organizations to overcome the hierarchical issues present in today's society \cite{Marcella2016} \cite{Xuan2024}.   \\
-        This paper addresses the gap between formally verifiable, automated consensus and subjective human decision-making. We propose a protocol that can achieve consensus even for subjective matters by qualifying participants based on their ability to represent a group's interests and intents. This protocol aims to provide a foundational building block for designing ranking systems applicable to both computational and social networks, and capable to address some of long standing governance issues such as agenda manipulation \cite{McKelvey1976} problem.\\
-        Main objectives thus are to propose a methodology for creating a ranking system in a trustless environment, review attack vectors and resistance mechanisms, provide a case study of existing use-case and discuss potential economic models for the practical utilization of such competence frameworks.
-        We begin by reviewing existing consensus mechanisms and their limitations, focusing on DAOs and their governance mechanisms. We then introduce our proposed protocol, followed by a discussion of its implementation and potential economic models. Finally, we present a case study of an existing use case and conclude with a discussion of future research directions.\\
+        his paper introduces a novel protocol designed to bridge the gap between formally verifiable, automated consensus and subjective human decision-making. By qualifying participants based on their ability to represent a group's interests and intents, our protocol aims to achieve consensus even for subjective matters. This protocol serves as a foundational building block for designing ranking systems applicable to both computational and social networks, addressing long-standing governance issues such as agenda manipulation  \cite{McKelvey1976}.\\
+        The main objectives of this research are to:
+
+        \begin{itemize}[nosep]
+            \item Propose a methodology for creating a ranking system in a trustless environment
+            \item Review potential attack vectors and resistance mechanisms.
+            \item Provide a case study of an existing use case.
+            \item Discuss potential economic models for the practical utilization of such competence frameworks.
+        \end{itemize}
+        We begin by reviewing existing consensus mechanisms and their limitations, focusing on DAOs and their governance mechanisms. We then introduce our proposed protocol, followed by a discussion of its implementation and potential economic models. Finally, we present a case study of an existing use case and conclude with a discussion of future research directions.
 
         \section{Background}
         % Write your methodology here
@@ -227,7 +233,7 @@
         \subsection{Summing up the context}
         From the issues identified in the background sections we can sum up that there are multiple problems that are faced both on network protocol level governance as well as on application layer built DAOs: Low participation rates, low Nakamoto coefficients (high centralization), lack of application layer commitments, inability to perform time-critical actions autonomously and in decentralized fashion, lack of multidimensional indices needed for knowledge work assesement.\\
         We can also see that incentive based protocols cause centralization when using own governance power equivalent as reward for protocol participation, yet decentralized organizations are not able to provide a commitment mechanism for participants, nor do they have truly autonomous way to appoint stakeholders purely from the mission it has, nor identify competent actors in the system to take prompt, time-critical actions.\\
-        Both on consensus layer based on continuous proving and application layer with share-holder voting we identified different problems.
+        Both on consensus layer based on continuous proving and application layer with share-holder voting we identified different problems. To some extend these problems are generic, and explained by lack of ability to autonomously distribute governance power, the recent studies have shown that Initial Coin Offerings (ICOs) are very suspectable to speculations and might be seen as root cause centralization \cite{Johannes24}. This leads to situation where reputable security and venture capital funds suggest new players a "progressive decentralization" approach to coupe with the threats\cite{a16z20}\cite{Webber23}, yet these articles do not offer a sustainable and scalable mechanism for decentralizing and staying efficient.
         We also outlined that already existing DAO precedent can show positive dynamics in Nakamoto coefficient when influence is sub-linear to efforts (or completely absent), compared to Consensus Layer systems that incentivize participants. We also outlined precedent of a game that has high participation rates and user retention (further elaborated in case study section).\\
 
         \section{Protocol Description}
@@ -382,7 +388,7 @@
             \paragraph{Composable DAO Framework and Network Effects.}
             A composable DAO framework emerges when a high-scoring group deploys another autonomous competence protocol with a subsidiary DAO, linking both to a shared asset holding contract such as new multisignature wallet. TThis effectively splits the organization, with asset ownership tied to the original but governance shared between the two bodies. The derived protocol cost can be linked to the parent DAO ($ \grave{X}_{gj}$ to $G_j$), , forming a network of interconnected DAOs (Fig. \ref{fig:dao-composition}).
 
-            \input{spawn.tex}
+
 
             This architecture offers a decentralized, scalable, and adaptable governance model, incentivizing participation and excellence while mitigating centralized control and stagnation risks.
 
@@ -390,7 +396,7 @@
             \subsection{Privacy constraints}
 
             This paper addresses privacy requirements in a proposal evaluation protocol. The protocol aims to balance transparency and anonymity by:
-            \begin{itemize}
+            \begin{itemize}[nosep]
                 \item Linking Proposals to Proposers: Enabling the association of proposal submissions events with specific proposers, without revealing the proposal content initially.
                 \item Verifying Proposal Uniqueness: Ensuring the submitted proposal was uniquely known to the proposer at the time of announcement, while preserving proposer anonymity.
                 \item Protecting Preference Selection: Safeguarding the privacy of participant preferences during proposal selection.
@@ -407,7 +413,7 @@
             % Concluding this section, we advocate that multidimensionality and free-market values will provide a way to ensure high participation rates, as participants will be able to participate in the decision-making process in a category that they are interested in, grouping with like-minded people in the fields they are competent in, and lastly - are rewarded for being in.
             % With a ranking ladder, and a multidimensional representation, this can be seen as a global framework for building education and helping young talents to discover their path by observing very well quantized data on their progress. \\ We may also suggest that this protocol functionally may be presented as simply a new way of talking, where each input - seen as valuable idea, and each vote - seen as a valuable feedback, and each game final, as actionable result.\\
             % In order to support such high participation rates, the user experience must be ensured as simple as possible, and the application must be designed in a way that it is easy to use and understand. In order for that, we require to have extensive metadata available for user experience purpose by the protocol as key requirement. For example, when participant sends in encrypted vote, or proposal - protocol shall be able to publicly announce that particular participant has submitted a vote, while not revealing the content of the vote nor the linkage to it after content is revealed for voting.\\
-
+            \input{spawn.tex}
             % Write your conclusion here
             \section{Implementation}
             Protocol particular implementation may vary depending on environment and requirements, however we can outline a generic implementation that can be used as a reference for further development. Following reference describes implementation as a smart contract on Ethereum Virtual Machine compatible network.
@@ -433,7 +439,7 @@
         To gather empirical data, we analyzed a group's activity and historical records in a music-sharing game \cite{DariusYoutube}. Participants share YouTube music clips, forming playlists. From 2017 to 2023, 17 games were played, each averaging 13 turns, 8 participants, and 3 months duration. Roughly 1700 proposals and votes were recorded, with a 100-song playlist limit per game.\\
         Over the years, 34 participants joined, 22 completing at least one tournament and 15 completing at least two. Of the original 6 players, 3 remain active, with 8 active users in the latest game. Non-voting instances were negligible, below 5\% of all votes. \\
         Despite lacking explicit incentives and requiring effort as occasional game masters, participation rates were remarkably high:
-        \begin{itemize}[itemsep=0.03cm]
+        \begin{itemize}[nosep]
             \item \textbf{Participation rate} of 95\% for active users
             \item \textbf{User retention} for three month period of 65\%
             \item \textbf{User retention} for two tournaments and roughly six month of 44\%
@@ -451,14 +457,41 @@
         Based on conducted experience, participants were asked to give general feedback, questions asked was possible to rate from 0 to 5. \\Overall experience was rated at 88\%, while the created playlists were rated at 92\%.\\ 80\% respondents answered positively on question \textit{"Do you feel you got to know people better after playing this game?"}. \\Question \textit{"How likely you would be willing to play such game of music with your friends or family?"} was rated at 84\%.\\
         Participants also proposed various different game topics and generally expressed interest. \\When asked \textit{"If you missed any turn to vote or propose, what were main causes"}, all respondents answered that they enjoyed the process however lacked time to listen all of the compositions.
 
+
+
+        \section{Potential Applications}
+        \subsection{Better ICOs}
+        By releasing an ERC20 token as payment for competence games, projects can create a more meritocratic system where participants earn governance tokens based on their demonstrated skills and contributions. This approach aligns incentives, rewards active engagement, and fosters a community of competent stakeholders who are genuinely invested in the project's success.
+
+        \subsection{Autonomous Code-Writing}
+        In software development, the autonomous competence identification protocol can revolutionize the code-writing process. By treating each round as a programming cycle, developers can submit pull requests, vote on the best solutions, and iteratively refine the codebase. The fixed cycle length ensures a strict deadline, promoting efficiency and focus. The protocol's ability to weight later rounds more heavily acknowledges the cumulative improvement of code over time, incentivizing continuous participation and innovation. Participants are encouraged to actively contribute new code and solutions rather than just reviewing and commenting, fostering a proactive and collaborative development environment.
+
+        \subsection{Cross-Stream Collaborative Integrations}
+        Organizations can leverage the continuous nature of the protocol to create a seamless platform for exchanging ideas and opinions. This reduces the need for time-consuming meetings and calls, enabling teams to collaborate more efficiently and effectively. By fostering a culture of continuous feedback and iterative improvement, the protocol can enhance communication, streamline decision-making, and drive innovation across various streams within an organization.
+
+        \subsection{Decentralized Social Networks}
+        In decentralized social networks, the protocol could assess the quality and relevance of user-generated content, such as posts, comments, and shares. By assigning higher rankings to valuable contributions, the protocol can incentivize users to create meaningful content and discourage spam or low-effort posts. Additionally, it can help identify influential users based on their consistent engagement and the quality of their interactions, fostering a more meritocratic and engaging social media environment
+
+        \subsection{Academic Research and Peer Review}
+        The traditional peer-review process often suffers from biases, delays, and lack of transparency. The autonomous competence identification protocol can address these issues by creating a decentralized peer-review system. Researchers can submit their work, review others' submissions, and receive ratings based on the quality and thoroughness of their reviews. This approach can lead to faster, more objective, and transparent peer review, ultimately improving the quality and credibility of academic research.
+
+        \subsection{Online Education and Skill Assessment}
+        The protocol can be applied to online education platforms to assess and certify learners' skills. By participating in competence games or challenges, learners can demonstrate their knowledge and proficiency in various subjects. The protocol's ranking system can provide a verifiable and transparent way to assess skills, enabling learners to showcase their expertise to potential employers or educational institutions.
+
+        \subsection{Prediction Markets}
+        Prediction markets rely on the collective wisdom of participants to forecast future events. The autonomous competence identification protocol can enhance these markets by identifying participants with a proven track record of accurate predictions. By assigning higher weights to their forecasts, the protocol can improve the overall accuracy and reliability of the market's predictions. Additionally, it can incentivize participants to continuously improve their forecasting skills to earn higher rewards.
+
+        \subsection{Decentralized Autonomous Organizations}
+        Decentralized Autonomous Organizations (DAOs) can utilize the autonomous competence identification protocol beyond governance to enhance various internal processes. For instance, the protocol can be employed to allocate resources efficiently by identifying members with the most relevant expertise and experience for specific tasks or projects. This ensures that resources are directed towards individuals who are most likely to utilize them effectively, maximizing the DAO's overall productivity and impact.
+
+        Furthermore, the protocol can be used to assign tasks within the DAO by matching members' skills and interests with the requirements of different roles or responsibilities. This can lead to a more motivated and engaged workforce, as members are more likely to excel in tasks that align with their strengths and passions.
+
+        Additionally, the protocol can be instrumental in evaluating proposals for new projects or initiatives within the DAO. By assessing the competence and track record of the proposers, as well as the potential impact and feasibility of their ideas, the DAO can make more informed decisions about which projects to pursue, increasing the likelihood of success and minimizing risks.
+
         \subsection{Empathic Agenda and AI Applications}
-        The protocol essentially establishes a framework for rating not only participants but also ideas themselves, decoupled from personalities. Its continuous nature enables deeper alignment among participants by utilizing previous round results as feedback from their group. This fosters empathy between participants as they iteratively refine their understanding of collective preferences.
+        The protocol establishes a framework for rating both participants and ideas, decoupling evaluation from personal biases. Its continuous feedback loop, utilizing previous round results, fosters deeper alignment among participants and cultivates empathy as they iteratively refine their understanding of collective preferences.
 
-        Beyond personal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS). It enables benchmarking AI agents participating in such games, with feedback and historical data forming a robust, personalized machine learning framework.
-
-        Depending on the application, the outcomes of rated proposals have diverse use cases. Top-scoring proposals can automate execution processes, such as formulating rated agendas (e.g., playlists for public events) or pre-assigned weights for voting lists.
-
-        Furthermore, this approach extends to mission-specific tasks like code development. Programmers can iteratively share, vote on, and refine code until a deadline, with later iterations potentially weighted more heavily.
+        Beyond interpersonal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS). By benchmarking AI agents participating in these games, the protocol generates feedback and historical data that can be used to create robust, personalized machine learning frameworks.
 
         \section{Conclusion}
 
@@ -470,10 +503,10 @@
 
         \clearpage
     \end{multicols}
-    \appendix
-    \section{Appendix A: Listings}
-    \input{algo}
-    \clearpage
+    % \appendix
+    % \section{Appendix A: Listings}
+    % \input{algo}
+    % \clearpage
     \bibliographystyle{ieeetr}
     \bibliography{whitepaper.bib}
 
