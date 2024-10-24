@@ -375,7 +375,7 @@
             \subsection{Time constraint}
             \label{sec:time-constraint}
 
-            As discussed in the previous section, any overt sybil attack requires multiple tournament rounds to establish a sufficient ranking within the system. In the original protocol, participants engage in several voting and proposing rounds to determine a winner.
+            As discussed in the previous section, any overt sybil attack requires multiple tournament to be held in order to establish a sufficient ranking within the system. In the original protocol, participants engage in several voting and proposing cycles to determine a winner.
 
             We preserve this multi-round requirement to enhance protocol security, ensuring resistance to centralization and maintaining mission alignment. We introduce a time constraint,  $t_c$ which represents the minimum time needed to obtain a single competence asset of any rank.
             Therefore, the intrinsic value of a tokenized competence rating is determined not only by financial effort and success among peers but also by the time invested in continuously improving one's position within the system. Even with parallel attack instances, an attacker would still require $t_{attack}(R) = t_c \cdot R$ time to reach rank $R$. This extended duration allows protocol members ample opportunity to detect and respond to the attack. Similarly, the $t_c$ may be broken down to smaller components, giving participants ability to leave or cancel a tournament, specify round times etc, while from proposed protocol view only requirement is that from beginning of tournament until end time $t_c$ must be elapsed.
@@ -386,7 +386,7 @@
             Furthermore, the time constraints discussed in Section \ref{sec:time-constraint} imply that changes in ${\vec{G_j}}$ (Eq.\ref{eq:speed-of-changes}) should be gradual, even under ideal conditions.
             To address these challenges, we propose a composable architecture where each potential ${\vec{G_j}}$ operates as an independent DAO. This eliminates single points of failure and enables the parallel emergence of successful solutions.
 
-            A non-permissive rating system, tokenized via rating representation $R$, empowers competent participants by amplifying voting power or granting specific permissions within an organization or contract. The global, distributed DAO $\vec{U}$, emerges as the aggregate of all $G$, representing a theoretical value not elaborated upon in this work. \\
+            A non-permissive rating system, tokenized via rating representation $R$, empowers competent participants by amplifying voting power or granting specific permissions within an organization or contract. The global, distributed DAO emerges, restoring the idea of "The DAO", that now can be described as $\vec{U}$ - universal alignment vector, described as the aggregate of all $G$, representing a theoretical value not elaborated upon in this work. \\
             Participants gain subject-specific competence $R_{j}$, which determines governance weights ($W_j$) within the corresponding DAO: $W_j = f(R_{j})$. As $R_j=f(t_c)$ (time-dependent), resulting weights are also time-dependent: $W_j=f(t_c)$. The protocol facilitates the transformation of $R_j$ into $W_j$.
             \\From Eq. \ref{eq:glob-align} and Eq. \ref{eq:comp-quant} it is possible to infer that protocol must provide means of transforming  to such DAO governance weights $W_j$.  This been already discussed in Sec. \ref{sec:transferability} that such conversion does not require to be reciprocal, meaning that reverse conversion may be market defined. This is a useful property as multiple financial and market instruments may be designed to ensure stimulus for participants to pursue their success strategy within the protocol.  \\ \input{exit.tex}
             \paragraph{Exit Strategies and Governance Transitions.}
@@ -402,7 +402,7 @@
             \paragraph{DAO Dynamics and Evolution.} The original protocol competence generation algorithm stay unaffected and already established uses for competence rating system with asset of $R$ are unaffected by the new governance power distribution of $W_j$. However, the new DAO quorum can define $G_j(t)$ for their specific subset and control the organization's public descriptions and URIs. This incentivizes the new DAO to increase its market value, justifying the exit strategy and driving demand for the $X_g$ asset needed for $W_j$.\\
             The Nakamoto coefficient increases over time as new participants enter and gain power. Early adopters can maintain control by strategically acquiring lower-ranking members' $R_{j}$, creating a reverse market that balances $R$ to $W_j$. Active participation is crucial for maintaining power in the face of inflation and new entrants.
             \paragraph{Composable DAO Framework and Network Effects.}
-            A composable DAO framework emerges when a high-scoring group deploys another autonomous competence protocol with a subsidiary DAO, linking both to a shared asset holding contract such as new multisignature wallet. TThis effectively splits the organization, with asset ownership tied to the original but governance shared between the two bodies. The derived protocol cost can be linked to the parent DAO ($ \grave{X}_{gj}$ to $G_j$), , forming a network of interconnected DAOs (Fig. \ref{fig:dao-composition}).
+            A composable DAO framework emerges when a high-scoring group deploys another autonomous competence protocol with a subsidiary DAO, linking both to a shared asset holding contract such as new multisignature wallet. This effectively splits the organization, with asset ownership tied to the original but governance shared between the two bodies. The derived protocol cost can be linked to the parent DAO ($ \grave{X}_{gj}$ to $G_j$), , forming a network of interconnected DAOs (Fig. \ref{fig:dao-composition}).
 
 
 
@@ -420,7 +420,19 @@
             \end{itemize}
             \paragraph{}
 
-            These measures aim to mitigate the Halo effect \cite{Verhulst2010}, where judgments are influenced by personalities rather than ideas, and deter strategic voting by increasing the complexity of coordinated attacks against competent proposals. The de-personalized voting process aims to foster a fairer evaluation environment by focusing on the merit of the proposals themselves.
+            These measures aim to mitigate the Halo effect \cite{Verhulst2010}\cite{Nisbett1977}, where judgments are influenced by personalities rather than ideas, and deter strategic voting by increasing the complexity of coordinated attacks against competent proposals. The de-personalized voting process aims to foster a fairer evaluation environment by focusing on the merit of the proposals themselves.
+
+            \paragraph{}
+            Privacy part of protocol can be described with a goal to implement a multi-stage voting protocol for DAO that ensures partial anonymity and eliminates bias and halo effect at every stage.
+
+            The protocol functions as follows:
+            \begin{enumerate}[nosep]
+                \item \textbf{Proposal Submission:} Proposers submit their proposals with the content encrypted while their identities remain visible. This approach ensures transparency in knowing who is submitting, but removes bias based on proposal content.
+                 \item \textbf{Proposal Shuffle and Reveal:} After the submission deadline, proposals are decrypted and revealed without disclosing proposers' identities. This ensures voting is based purely on the merit of the proposals, eliminating bias towards proposers.
+                 \item \textbf{Voting:} During the voting phase, votes remain private. Both the voter and the multi-party protocol managing the votes can identify which proposal belongs to which voter, ensuring voters cannot vote for themselves.
+                 \item \textbf{Final Reveal:} Once the voting period concludes, the proposers' identities are revealed together with all of the votes, the proposer of the winning proposal may be awarded.
+            \end{enumerate}
+
             % \end{multicols}
 
             % \paragraph{}
@@ -431,23 +443,6 @@
             % In order to support such high participation rates, the user experience must be ensured as simple as possible, and the application must be designed in a way that it is easy to use and understand. In order for that, we require to have extensive metadata available for user experience purpose by the protocol as key requirement. For example, when participant sends in encrypted vote, or proposal - protocol shall be able to publicly announce that particular participant has submitted a vote, while not revealing the content of the vote nor the linkage to it after content is revealed for voting.\\
             \input{spawn.tex}
             % Write your conclusion here
-            \section{Implementation}
-            Protocol particular implementation may vary depending on environment and requirements, however we can outline a generic implementation that can be used as a reference for further development. Following reference describes implementation as a smart contract on Ethereum Virtual Machine compatible network.
-            \paragraph{Rating asset}
-            is semi-fungible tokenized asset contract, such as defined by ERC1155\cite{EIP1155} interface standard and with emission permit granted only to contract(or contracts), that implements autonomous rating identification. Participation fee $X_g$ is expressed as ERC20\cite{EIP20} token interface which may represent a overseeing organization governance power.
-            Privileged methods available to rating identification contracts: minting new token, burning existing token from owners balance.
-
-            \paragraph{Competence identifaciton contract}
-            operates by logic that is given in (Algorithm \ref{algo:basic-acid}). The specific rules of produced by autonomous decision making based on competence identification goals, may be specific for goals. For example, if goal is to formulate one, finalized proposal over multiple round, a later rounds based proposals could be seen as more refined and hence applied higher weights.
-            % \end{multicols}
-
-            % \begin{multicols}{2}
-
-            \paragraph{DAO, Governance Token \& Multisig}
-            can be used from already established frameworks for token based voting may be used. Various frameworks for DAOs are available\cite{AragonOSx}\cite{OpenZeppelinGovernor}, as well as industry standard multisignature wallet\cite{GnosisSafeMultisig}. In standard implementation we suggest requiring $2/3$ quorum threshold on the multisignature wallet.
-
-        \paragraph{Game Master concept} is needed to provide privacy. The game master is responsible for collecting proposals and announcing fact of activity without disclosing the actor, then posting them as batch to a competence identification contract, collecting votes in a similar manner, without tell nor who, nor for whom votes, and finally revealing the results.\\ This is potential failure point as such agent may disclose or even attempt to corrupt data. Whilst in our simple implementation a trusted backend server is used, an ideal solution can be achieved by multiparty computation, where every participant seen as network participant that can sign transactions with encrypted data, and decrypt it according to the protocol requirements. Fully on-chain fully-homomorphic encryption promised by emerging blockchains poses interest\cite{Fhenix}.
-
 
         % Write your results here
         \section{Case Study}
@@ -514,17 +509,24 @@
         \paragraph*{Empathic Agenda and AI Applications:} protocol establishes a framework for rating both participants and ideas, decoupling evaluation from personal biases. Its continuous feedback loop, utilizing previous round results, fosters deeper alignment among participants and cultivates empathy as they iteratively refine their understanding of collective preferences.
 
         Beyond interpersonal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS). By benchmarking AI agents participating in these tournaments, the protocol generates feedback and historical data that can be used to create robust, personalized machine learning frameworks.
-
+    \end{multicols}
         \section{Conclusion}
 
-        This paper has presented a novel protocol for establishing ranking systems in DAOs and consensus-building protocols, aiming to address challenges such as low participation, centralization, and lack of commitment mechanisms. By incorporating a competence-based approach, tokenized ratings, and a composable architecture, the protocol fosters a more engaging, equitable, and secure decision-making process. The real-world case study demonstrates the potential of this approach to drive high participation and retention rates, even without explicit incentives.
+        This paper introduced a novel protocol for establishing ranking systems within DAOs and consensus-building protocols, designed to overcome challenges such as low participation, centralization, and weak commitment mechanisms. By integrating a competence-based approach with tokenized ratings and a composable architecture, the protocol fosters a more engaging, equitable, and secure decision-making process.  A real-world case study demonstrated its potential to drive high participation and retention, even without explicit incentives.
 
-        Future research could explore the development of more sophisticated economic models and incentive structures to further enhance participation and mitigate risks. Additionally, the protocol's applicability could be investigated in various domains beyond music sharing, such as decentralized finance, social networks, and scientific collaboration. By bridging the gap between formal consensus mechanisms and subjective human decision-making, this research contributes to the ongoing development of more effective and inclusive governance models for the digital age.
+        While these initial findings are promising, further research is needed to validate the protocol's robustness and generalizability. Future investigations should explore:
 
+        \begin{itemize}
+        \item \textbf{Sophisticated economic models and incentive structures:}  To optimize participation and mitigate risks within diverse DAO environments.
+        \item \textbf{Expanded applications:} Examining the protocol's efficacy in domains beyond music sharing, including decentralized finance, social networks, and scientific collaboration.
+        \item \textbf{On-chain implementation and MEV resistance:} Developing a fully operational on-chain entity with strong resistance to manipulation and Sybil attacks.
+        \end{itemize}
+
+        This research contributes to the ongoing evolution of effective and inclusive governance models by bridging formal consensus mechanisms with subjective human decision-making.  Its potential impact extends beyond DAOs, offering promising avenues for enhancing corporate governance through fair employee evaluation, recognition, and increased organizational productivity. However, further empirical validation and theoretical analysis, particularly regarding game-theoretic aspects, are crucial to realizing its full potential.
 
 
         \clearpage
-    \end{multicols}
+
     % \appendix
     % \section{Appendix A: Listings}
     % \input{algo}
