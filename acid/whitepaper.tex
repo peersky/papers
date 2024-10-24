@@ -73,7 +73,7 @@
         \paragraph{Parallel management} concept is introduced recently by same researchers using CPSS to specifically address management perspectives in cyber age \cite{Wang2022}. This work actualizes importance of highly efficient and autonomous decision making and feedback processes. Such framework envisions DAOs as core element operating CPSS. The need for multidimensional indices as well as foundational models for measuring knowledge works is also discussed \cite{Juanjuan2023}. References to DAOs as instrument within CPSS and parallel management means there is a need to ensure, that such a dependency is well architected to provision future breakthroughs and enables efficient management processes that do not risk becoming a performance bottleneck. The needs for parallel management don't stop on that, a robust mechanism for reinforcing the informational and intellectual capabilities of organizations, enabling them effectively create knowledge works and benchmark performance of AI and other agents in various tasks and aspects of governance and management is discussed \cite{Wang2022}.
         \paragraph{The Nakamoto Coefficient}  is another newly introduced concept that helps to measure the decentralization of a protocol \cite{Balaji2017}. It is defined as \textit{how many entities one would need to to be compromised to control entire system} and it can be used as a decentralization criteria.
 
-        \paragraph{Traditional governance models} While this is not main focus of our research, we can point out that traditional governance have a long-standing backlog of unresolved problems. One prominent one is agenda manipulation \cite{McKelvey1976}, that should be addressed well to ensure high reliability of organizations in autonomous systems. Participation rates (turnout) is also being studied and seen to be in decline in major countries over past decades \cite{Lawrence23}\cite{Filip24}. 
+        \paragraph{Traditional governance models} While this is not main focus of our research, we can point out that traditional governance have a long-standing backlog of unresolved problems. One prominent one is agenda manipulation \cite{McKelvey1976}, that should be addressed well to ensure high reliability of organizations in autonomous systems. Participation rates (turnout) is also being studied and seen to be in decline in major countries over past decades \cite{Lawrence23}\cite{Filip24}.
         \paragraph{The meritocratic models}, where leadership is based on ability, has been hampered by a fundamental issue: the reliable and autonomous identification of competence. As researchers have argued\cite{Arrow2000}, the inability to objectively assess merit creates vulnerabilities to manipulation and power struggles, limiting the practical application of such systems.
 
 
@@ -227,12 +227,10 @@
         Summing this section up, we can say that whatever new protocol is designed for governance, it is realistic to set requirements of privacy in voting and proposing process.
 
         \subsection{Proposed Protocol origins}\label{sec:protocol_origins}
-        The foundation of this research stems from a game played by a small group of Lithuanian friends in a chat messenger since 2017. Initially designed for leisure and sharing music, this game has unexpectedly exhibited properties desirable in governance protocols.\\
-        The game, played by 5 to 10 participants, involves a rotating "game master" role. Each round, participants submit music they enjoy to the game master, who compiles them into a playlist. Participants then vote on their favorite composition, and the game master reveals the results, including proposer identities and scores. The game continues until 100 compositions are added to the playlist, with the final ranking based on accumulated scores\cite{DariusYoutube}.\\
-        This game's design inherently resists agenda setter manipulation due to its mandatory proposal-submission prerequisite for voting, a stark contrast to traditional voting systems vulnerable to small-group dominance\cite{McKelvey1976}. Furthermore, it effectively mitigates negative proposal effects like the Halo effect \cite{Verhulst2010}. \\
+        The foundation of this research stems from a game played by a small Lithuanian community in online chat since 2017. Initially designed for leisure and staying in touch with friends, this table top game goal is sharing music to form collaborative playlists ordered by highest ranking proposal. This game has unexpectedly exhibited properties desirable in governance protocols.\\
+        The protocol of game usually is played by 5 to 10 participants and involves a rotating "game master" role. Game is split in multiple rounds. Each round, participants submit privately music they enjoy to game master, who compiles them and publishes a list to rate, without disclosing identities of proposers. Participants then have to privately submit their vote to game master on three compositions they like, giving them 3,2 and 1 points accordingly, skipping a vote is considered to give everyone but participant 3 points, efficiently biasing his personal score below rest participants even if he has sent a proposal. After the timeout or when all actions are made, game master reveals the results, including proposer identities and scores. The game continues until 100 compositions are added to the playlist, with the final ranking based on accumulated scores\cite{DariusYoutube}.\\
+        This game's design inherently resists agenda setter manipulation due to its mandatory proposal-submission prerequisite for voting, a stark contrast to traditional voting systems vulnerable to small-group dominance\cite{McKelvey1976}. Furthermore, it effectively mitigates negative proposal effects like the Halo effect \cite{Verhulst2010} since even the proposals are abstracted from identities during voting cycle. In practice, disclosing own proposal is considered to be misbehaving is not appreciated in the group.  \\
         Interestingly, the game demonstrates high participation and retention rates, suggesting potential for adaptation as a governance protocol (elaborated in case study section). The primary limitation lies in participants' inclination towards specific interests (music in this case) or groups of people.
-
-        The game's communication complexity appears to be $O(3n)$ per round, as participants submit a proposal, receive a batch of proposals, and then submit a vote.
 
         This research aims to build upon this foundation, exploring the game's potential as a scalable, decentralized governance protocol with built-in resistance to manipulation and high participant engagement.
 
@@ -241,7 +239,7 @@
         From the issues identified in the background sections we can sum up that there are multiple problems that are faced both on network protocol level governance as well as on application layer built DAOs: Low participation rates, low Nakamoto coefficients (high centralization), lack of application layer commitments, inability to perform time-critical actions autonomously and in decentralized fashion, lack of multidimensional indices needed for knowledge work assesement.\\
         We can also see that incentive based protocols cause centralization when using own governance power equivalent as reward for protocol participation, yet decentralized organizations are not able to provide a commitment mechanism for participants, nor do they have truly autonomous way to appoint stakeholders purely from the mission it has, nor identify competent actors in the system to take prompt, time-critical actions.\\
         Both on consensus layer based on continuous proving and application layer with share-holder voting we identified different problems. To some extend these problems are generic, and explained by lack of ability to autonomously distribute governance power, the recent studies have shown that Initial Coin Offerings (ICOs) are very suspectable to speculations and might be seen as root cause centralization \cite{Johannes24}. This leads to situation where reputable security and venture capital funds suggest new players a "progressive decentralization" approach to coupe with the threats\cite{a16z20}\cite{Webber23}, yet these articles do not offer a sustainable and scalable mechanism for decentralizing and staying efficient.
-        We also outlined that already existing DAO precedent can show positive dynamics in Nakamoto coefficient when influence is sub-linear to efforts (or completely absent), compared to Consensus Layer systems that incentivize participants. We also outlined precedent of a game that has high participation rates and user retention (further elaborated in case study section).\\
+        We also outlined that already existing DAO precedent can show positive dynamics in Nakamoto coefficient when influence is sub-linear to efforts (or completely absent), compared to Consensus Layer systems that incentivize participants. We also outlined precedent of a protocol that has high participation rates and user retention (further elaborated in case study section).\\
 
         \section{Protocol Description}
 
@@ -314,12 +312,13 @@
         Token economics,and their application in governance systems are widely used today, however mechanisms such as Initial Coin Offerings (ICOs) have shown to be a weak spot as this opens doors for bad entrepreneurs \cite{Johannes24}, and as already discussed in background section, ultimate outcome of such allocation is extremely centralized, and suspect of issues such as centralization and inability to perform well.
 
         \subsection{Continuous voting-proposing}
-        In order to accommodate for rounding error produced in Eq. \ref{eq:cosine-similarity}, we propose to inherit from original protocol described in \ref{sec:protocol_origins} the continuous voting-proposing system. This continuous process enables to agents to train their alignment, reducing overall entropy of the group, and hence increasing the overall alignment vector $\vec{G}$ discovery process. The continuous nature of the protocol allows for the alignment vector to be updated in real-time, reflecting the most recent preferences of the group as well as it enables for winning $\mathbf{P_i}$ that is chosen as groups delegate to change over time, therefore the the rounding error produced by Eq. \ref{eq:cosine-similarity} can be time averaged across participants. Ranking ladder proposed in next section would also improve this process, as the most aligned delegates will be incentivized to switch their group to a higher ranked one, hence allowing group to find next most aligned delegate in a more efficient way.
+        In order to accommodate for rounding error produced in Eq. \ref{eq:cosine-similarity}, we propose to inherit from original protocol described in \ref{sec:protocol_origins} the continuous voting-proposing system. This continuous process enables to agents to train their alignment, reducing overall entropy of the group, and hence increasing the overall alignment vector $\vec{G}$ discovery process. The continuous nature of the protocol allows for the alignment vector to be updated in real-time, reflecting the most recent preferences of the group as well as it enables for winning $\mathbf{P_i}$ that is chosen as groups delegate, to change over time, therefore the the rounding error produced by Eq. \ref{eq:cosine-similarity} can be averaged across participants trough multiple cycles.
+        Ranking ladder proposed in next section also improves this process, as the most aligned delegates will be incentivized to switch their group to a higher ranked one, hence allowing group to find next most aligned delegate in a more efficient way.
 
         \subsection{Ranking ladder}
 
         Providing a resistance to influence compounding becomes a critical aspect part for such protocol, since we are relying to a free-market values and principally do not require any specific identity solution as a dependency to this protocol.
-        Our foundational model for this resistance lies in extending  ~\ref{sec:protocol_origins} idea, to introduce \textit{ranking ladder} (Fig. \ref*{fig:game-connection}) that lets game winner to participate in next game with higher level of rewards only if it holds an asset of rank below. Such architecture allows to design initially low ability to influence ${\vec{G}}$ and exponentially increase as participant succeeds climbing up ladder. As participants gain higher ability to influence global alignment value, quantitative measure of that is their individual preference vector magnitude $|P|$, which protocol accounts for increasing only as they prove to be the most impactful part of their group $|A_i|$.
+        Our foundational model for this resistance lies in extending  ~\ref{sec:protocol_origins} idea, to introduce \textit{ranking ladder} (Fig. \ref*{fig:game-connection}) that lets tournament winner to participate in next tournament with higher level of rewards only if it holds an asset of rank below. Such architecture allows to design initially low ability to influence ${\vec{G}}$ and exponentially increase as participant succeeds climbing up ladder. As participants gain higher ability to influence global alignment value, quantitative measure of that is their individual preference vector magnitude $|P|$, which protocol accounts for increasing only as they prove to be the most impactful part of their group $|A_i|$.
         \input{ladder.tex}
         Participant rank $R$ hence represents such quantization of $|A_i|$:
 
@@ -333,39 +332,39 @@
         In order to see how this affects protocol parameters on practice, we can analyze a collision attack scenario, which is one of most prominent threads for any permissions less protocol that produces intrinsic value.
 
 
-        If each game requires a commitment, such as a participation fee, we can demonstrate that the proposed ranking ladder introduces a desired non-linear compounding friction for potential malicious actors attempting to manipulate the system.
+        If each tournament requires a commitment, such as a participation fee, we can demonstrate that the proposed ranking ladder introduces a desired non-linear compounding friction for potential malicious actors attempting to manipulate the system.
 
         To illustrate this, let's use the concept of a agent alignment vector introduced in Eq.(\ref*{eq:glob-align}). In the absence of collusion or manipulation, a blind proposing-voting process is inherently probabilistic, where the inverse of groups magnitude $|\vec{A}|$ quantifies the resistance to entropy inherent in every participants' natural choices.
 
 
-        Any colluding actors attempting a Sybil attack are effectively trying to manipulate global alignment vector $\mathbf{G(t)}$ by becoming a delegate of $|\vec{A_i}|$ portion of it. Given our earlier requirements for an ideal protocol, it should encourage the formation of small groups while maintaining a large overall active participant count. This can be implemented as breakdown into smaller groups, which serves as a pre-alignment mechanism, as participants willingly choose to collaborate. Similarly, additional requirements can be imposed on the participants by group creators, such as humanity checks. Various different protocols can be used such as Proof of Location\cite{sheng2024bftpolocbyzantinefortifiedtrigonometric} or  proof of personhood\cite{WorldCoin2024}. Outside of this group context, any group can be seen as already to some extend colluding, with Sybil attacks representing an extreme case of such alignment. Therefore our proposal is for autonomous competence rating is to declare by design, that \textit{colluding groups are allowed, and that the protocol is designed to resist such attacks}.
+        Any colluding actors attempting a sybil attack are effectively trying to manipulate global alignment vector $\mathbf{G(t)}$ by becoming a delegate of $|\vec{A_i}|$ portion of it. Given our earlier requirements for an ideal protocol, it should encourage the formation of small groups while maintaining a large overall active participant count. This can be implemented as breakdown into smaller groups, which serves as a pre-alignment mechanism, as participants willingly choose to collaborate. Similarly, additional requirements can be imposed on the participants by group creators, such as humanity checks. Various different protocols can be used such as Proof of Location\cite{sheng2024bftpolocbyzantinefortifiedtrigonometric} or  proof of personhood\cite{WorldCoin2024}. Outside of this group context, any group can be seen as already to some extend colluding, with sybil attacks representing an extreme case of such alignment. Therefore our proposal is for autonomous competence rating is to declare by design, that \textit{colluding groups are allowed, and that the protocol is designed to resist such attacks}.
 
         Therefore, from the outset, each group is inherently aligned towards a specific direction, determined by the free will of its members to participate in a particular tournament. This pre-alignment introduces a degree of predictability, quantified by $|\vec{A}|$, into an otherwise stochastic process.
 
 
-        If there is a fee, that creates participation resistance (financial, and hence energetic), we can say that achieving a specific level of competence cost is $\$R$ and can be expressed as a function of level of competence $i$ and game fee $X_g$ with mathematical expectation for costs achieving specific rank via sybil attack described as
+        If there is a fee, that creates participation resistance (financial, and hence energetic), we can say that achieving a specific level of competence cost is $\$R$ and can be expressed as a function of level of competence $i$ and tournament entry fee $X_g$ with mathematical expectation for costs achieving specific rank via sybil attack described as
             \begin{equation}
                 \mathbb{E}[\$R] = X_g \cdot \mathbb{E}[N_{\text{sybils}}(R)]
             \end{equation}
 
             % $$\mathbb{E}[\$C(i)] = X_g*\mathbb{E}[{N_{sybils}(i)}]$$
 
-            Where $N_{sybils}(R)$ is a number of sybil accounts required to win a game, and hence obtain rank $R$. Due to tournament fragmentation, an attacker mixing Sybil accounts with fair players must strategically allocate Sybils across games for cost efficiency. However, this is challenging due to each group's unique $\vec{A}$, finding suitable games for manipulation is difficult.  Meanwhile, from a deductive reasoning, the distance between fair actors' preferences $P_i$ and $\mathbf{G(t)}$ should diminish as their rank increases, reflecting the protocol's design of identifying participants alignment.
+            Where $N_{sybils}(R)$ is a number of sybil accounts required to win a tournament, and hence obtain rank $R$. Due to tournament fragmentation, an attacker mixing sybil accounts with fair players must strategically allocate sybils across tournaments for cost efficiency. However, this is challenging due to each group's unique $\vec{A}$, finding suitable tournaments for manipulation is difficult while tournament creators may impose additional requirements such as described in \cite{sheng2024bftpolocbyzantinefortifiedtrigonometric}\cite{WorldCoin2024}.  Meanwhile, from a deductive reasoning, the distance between fair actors' preferences $P_i$ and $\mathbf{G(t)}$ should diminish as their rank increases, reflecting the protocol's design of identifying participants alignment.
 
 
-            This means that for any protocol participant, confidence over group conducting a sybil attack will increase as level of games increase, hence they will be more likely to refuse joining games with such, resulting
+            This means that for any protocol participant, confidence over group conducting a sybil attack will increase as level of tournament increase, hence they will be more likely to refuse joining tournament with such, resulting
             \begin{equation}
                 \lim_{R \to \infty} \frac{\mathbb{E}[N_{\text{sybils}}(R)]}{R} = N_{\text{min}}
                 \label{eq:limit-nmin}
-            \end{equation} Where $N_{min}$ is amount of peers required to join the game. Hence, a straightforward Sybil attack scenario where the attacker attempts to manipulate the protocol by flooding games with multiple Sybil accounts may be analyzed.
-            Then for an attacker who tries to conduct a sybil attack it would cost
+            \end{equation} Where $N_{min}$ is amount of peers required to join the tournament. Hence, a straightforward sybil attack scenario where the attacker attempts to manipulate the protocol by flooding tournaments with multiple sybil accounts may be analyzed.
+            For an attacker who tries to conduct a sybil attack it would cost
             \begin{equation}
                 \$R = X_g*N_{min}^R
             \end{equation}
-            to get rank of level $i$. At the same time, for the agent who is relying on his pure competence and wins each game, same cost would be only \begin{equation}
+            to get rank of level $i$. At the same time, for the agent who is relying on his pure competence and wins each tournament fairly, same cost would be only \begin{equation}
                 \$R = X_g*R
             \end{equation}
-            In the context of governance power, this allows to draw price relationship between governing competence power that may be put at stake, and total value loked (TVL) at stake:
+            In the context of governance power, this allows to draw price relationship between governing competence power that may be put at stake, and total value locked (TVL) at stake:
             \begin{equation}
                 TVL << \$R
             \end{equation}
@@ -376,10 +375,10 @@
             \subsection{Time constraint}
             \label{sec:time-constraint}
 
-            As discussed in the previous section, any overt Sybil attack requires multiple game rounds to establish a sufficient ranking within the system. In the original protocol, participants engage in several voting and proposing rounds to determine a winner.
+            As discussed in the previous section, any overt sybil attack requires multiple tournament rounds to establish a sufficient ranking within the system. In the original protocol, participants engage in several voting and proposing rounds to determine a winner.
 
-            We preserve this multi-round requirement to enhance protocol security, ensuring resistance to centralization and maintaining mission alignment. We introduce a time constraint,  $t_c$ which represents the minimum time needed to mint a single competence asset of any rank.
-            Therefore, the intrinsic value of a tokenized competence rating is determined not only by financial effort and success among peers but also by the time invested in continuously improving one's position within the system. Even with parallel attack instances, an attacker would still require $t_{attack}(R) = t_c \cdot R$ time to reach rank $R$. This extended duration allows protocol members ample opportunity to detect and respond to the attack. Similarly, the $t_c$ may be broken down to smaller components, giving participants ability to leave or cancel a game, specify round times etc.
+            We preserve this multi-round requirement to enhance protocol security, ensuring resistance to centralization and maintaining mission alignment. We introduce a time constraint,  $t_c$ which represents the minimum time needed to obtain a single competence asset of any rank.
+            Therefore, the intrinsic value of a tokenized competence rating is determined not only by financial effort and success among peers but also by the time invested in continuously improving one's position within the system. Even with parallel attack instances, an attacker would still require $t_{attack}(R) = t_c \cdot R$ time to reach rank $R$. This extended duration allows protocol members ample opportunity to detect and respond to the attack. Similarly, the $t_c$ may be broken down to smaller components, giving participants ability to leave or cancel a tournament, specify round times etc, while from proposed protocol view only requirement is that from beginning of tournament until end time $t_c$ must be elapsed.
 
 
             \subsection{Composable architecture}
@@ -393,7 +392,7 @@
             \paragraph{Exit Strategies and Governance Transitions.}
             Existing DAO frameworks can leverage fungible tokens derived from $R_{j}$ through a unidirectional asset exchange. This enables high-scoring participants to "exit" and convert their competence into governance power within the underlying DAO, essentially forming a specialized "guild" (Fig. \ref{fig:competence-transfer}).
             While the rating asset $R$ holds intrinsic value, high-scoring participants may stagnate at the top due to a lack of competition. Additionally, tokenized ratings are better suited for reputation representation than direct governance, as they are vulnerable to unforeseen losses during possible third party staking. The exchange into governance weight $W_j$ symbolizes a transition from service provision (risking reputation) to a managerial role, where participants focus on generating intrinsic value for the DAO.
-            \paragraph{Exponential Rewards and Sybil Attack Mitigation.}
+            \paragraph{Exponential Rewards and sybil Attack Mitigation.}
             To incentivize participation and prevent stagnation, exponential rewards are necessary, especially for higher ranks with fewer participants. Governance power must also account for potential sybil attacks:
             \begin{equation}
                 W_{gj}(R) \propto  X_{g_j}*\mathbb{E}[N_{sybils_j}]^{R_j}
@@ -469,12 +468,12 @@
         We also observed that collected playlists, ordered by high-score compositions, are of high quality and form a good representation of participants' preferences, while the winner of the tournament is often a participant that is able not simply propose a popular song, but to propose a song that is liked by many participants, including such aspects that participants will likely vote songs they hear for the first time (original ideas).
 
         \subsection{Prototype study}
-        We wrote a simple implementation of such game that allows ease game process with game automation. Two games games were conducted each game consisted of 9 participants. Participants included original concept participants and random people who did not know each other of different age groups. Game rules and requirements were set close to original: participants were required to send URLs for music on youtube with composition length of no more than 10 minutes and had to listen for all of them in order to make a vote. Privacy constraints were ensured by a backend server. Quadratic voting system was used, allowing users to spend 14 vote credits in integer form. Only notable difference  was that for sake of design simplification, the total playlist length was replaced with fixed round count.\\
+        We wrote a simple implementation of such protocol that allows easy process with protocol automation. Two protocol tournaments were conducted each tournaments consisted of 9 participants. Participants included original concept participants and random people who did not know each other of different age groups. Tournaments rules and requirements were set close to original: participants were required to send URLs for music on youtube with composition length of no more than 10 minutes and had to listen for all of them in order to make a vote. Privacy constraints were ensured by a backend server. Quadratic voting system was used, allowing users to spend 14 vote credits in integer form. Only notable difference  was that for sake of design simplification, the total playlist length was replaced with fixed round count.\\
         Participants were given no incentives, and most of the group had no prior blockchain experience nor significant interest in it.\\
-        Some participation rate metrics were recorded during these two games:
+        Some participation rate metrics were recorded during these two tournaments:
         \begin{itemize}[nosep]
             \item \textbf{Participation rate} of 84\% for active users
-            \item \textbf{User retention} of 66.7\% after first game
+            \item \textbf{User retention} of 66.7\% after first tournament
             \item Average of \textbf{3.23 proposals and 3.09 votes per user} per month
         \end{itemize}
 
@@ -486,13 +485,13 @@
             \item \textbf{\textit{"Did playing this game give you new insights into the personalities or perspectives of other players?"}}: was rated at 80\%.
             \item \textbf{\textit{"Would you be willing to play such game with your friends or family?"}}: was rated at 84\%.
         \end{itemize}
-        Out from participants that left game could be noted significant age, and preference difference
-        Participants also proposed various different game topics and generally expressed interest. \\When asked \textit{"If you missed any turn to vote or propose, what were main causes"}, all respondents answered that they enjoyed the process however lacked time to listen all of the compositions.
+        Out from participants that left tournament could be noted significant age, and preference difference
+        Participants also proposed various different tournament topics and generally expressed interest. \\When asked \textit{"If you missed any turn to vote or propose, what were main causes"}, all respondents answered that they enjoyed the process however lacked time to listen all of the compositions.
 
 
 
         \section{Potential Applications}
-        \paragraph*{Better ICOs:} By releasing an ERC20 token as payment for competence games, projects can create a more meritocratic system where participants earn governance tokens based on their demonstrated skills and contributions. This approach aligns incentives, rewards active engagement, and fosters a community of competent stakeholders who are genuinely invested in the project's success.
+        \paragraph*{Better ICOs:} By releasing an ERC20 token as payment for competence tournaments, projects can create a more meritocratic system where participants earn governance tokens based on their demonstrated skills and contributions. This approach aligns incentives, rewards active engagement, and fosters a community of competent stakeholders who are genuinely invested in the project's success.
 
         \paragraph*{Autonomous Code-Writing:} In software development, the autonomous competence identification protocol can revolutionize the code-writing process. By treating each round as a programming cycle, developers can submit pull requests, vote on the best solutions, and iteratively refine the codebase. The fixed cycle length ensures a strict deadline, promoting efficiency and focus. The protocol's ability to weight later rounds more heavily acknowledges the cumulative improvement of code over time, incentivizing continuous participation and innovation. Participants are encouraged to actively contribute new code and solutions rather than just reviewing and commenting, fostering a proactive and collaborative development environment.
 
@@ -502,7 +501,7 @@
 
         \paragraph*{Academic Research and Peer Review:} The traditional peer-review process often suffers from biases, delays, and lack of transparency. The autonomous competence identification protocol can address these issues by creating a decentralized peer-review system. Researchers can submit their work, review others' submissions, and receive ratings based on the quality and thoroughness of their reviews. This approach can lead to faster, more objective, and transparent peer review, ultimately improving the quality and credibility of academic research.
 
-        \paragraph*{Online Education and Skill Assessment:} The protocol can be applied to online education platforms to assess and certify learners' skills. By participating in competence games or challenges, learners can demonstrate their knowledge and proficiency in various subjects. The protocol's ranking system can provide a verifiable and transparent way to assess skills, enabling learners to showcase their expertise to potential employers or educational institutions.
+        \paragraph*{Online Education and Skill Assessment:} The protocol can be applied to online education platforms to assess and certify learners' skills. By participating in competence tournaments or challenges, learners can demonstrate their knowledge and proficiency in various subjects. The protocol's ranking system can provide a verifiable and transparent way to assess skills, enabling learners to showcase their expertise to potential employers or educational institutions.
 
         \paragraph*{Prediction Markets:} The autonomous competence identification protocol can enhance these markets by identifying participants with a proven track record of accurate predictions. By assigning higher weights to their forecasts, the protocol can improve the overall accuracy and reliability of the market's predictions. Additionally, it can incentivize participants to continuously improve their forecasting skills to earn higher rewards.
 
@@ -514,7 +513,7 @@
 
         \paragraph*{Empathic Agenda and AI Applications:} protocol establishes a framework for rating both participants and ideas, decoupling evaluation from personal biases. Its continuous feedback loop, utilizing previous round results, fosters deeper alignment among participants and cultivates empathy as they iteratively refine their understanding of collective preferences.
 
-        Beyond interpersonal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS). By benchmarking AI agents participating in these games, the protocol generates feedback and historical data that can be used to create robust, personalized machine learning frameworks.
+        Beyond interpersonal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS). By benchmarking AI agents participating in these tournaments, the protocol generates feedback and historical data that can be used to create robust, personalized machine learning frameworks.
 
         \section{Conclusion}
 
