@@ -1,0 +1,201 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{multicol}
+% Packages
+\usepackage{lipsum} % For generating dummy text
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{caption}
+\captionsetup{font=small}
+\usepackage{standalone}
+\usepackage{listings}
+\usepackage{xcolor} % For setting colors
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{afterpage}
+\usepackage{placeins}
+\usepackage{tikz}
+\usepackage{enumitem}
+\lstset{
+  language=[LaTeX]TeX,
+  breaklines=true,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green},
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  showspaces=false,
+  showstringspaces=false,
+}
+\pgfplotsset{compat=1.17} % Use this to ensure compatibility with newer features
+\setlength{\parskip}{6pt}
+% Title and author
+\title{Autonomous competence identification protocol: A dynamic ranking ladder system for blockchain applications}
+
+
+\author{Tim Pechersky, Aivars Smirnovs}
+
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+    % \twocolumn
+    \maketitle
+
+
+    \begin{abstract}
+        Decentralized systems often struggle to identify and reward competence objectively. This paper proposes a novel protocol for establishing a dynamic ranking ladder system within trustless environments. By leveraging game-theoretic principles and dynamic systems theory, our protocol enables the autonomous identification of competence while mitigating Sybil attacks. Participants engage in competitive "elections" within tiered groups, with winners progressing to higher ranks. This process creates a quantifiable and verifiable measure of competence, represented by a tokenized rating. The protocol's time-based and cost-based mechanisms ensure that achieving high ranks requires genuine effort and skill, making it resistant to manipulation.  Potential applications include blockchain consensus, decentralized social networks, and DAO governance.
+    \end{abstract}
+
+    \section{Introduction}
+
+    Traditional meritocratic models often falter due to the inherent difficulty of objectively identifying and rewarding competence.\cite{Arrow2000} This challenge is amplified in decentralized systems, where trust is minimized and the potential for manipulation is high. Existing consensus mechanisms, such as Proof-of-Work and Proof-of-Stake, primarily rely on resource expenditure or direct asset ownership, which may not accurately reflect true competence.
+
+    This paper introduces a novel protocol designed to address this gap by establishing a dynamic ranking ladder system. Our protocol incentivizes participants to demonstrate their abilities through competitive "elections" within tiered groups. By requiring both time and financial commitment, we create a system that is resistant to Sybil attacks and fosters genuine competence development. This approach can be applied to various decentralized systems, including blockchain consensus mechanisms, where it can contribute to more robust and equitable governance.
+
+    This research aims to:
+
+    \begin{itemize}[nosep]
+        \item Propose a methodology for creating a dynamic ranking system in a trustless environment.
+        \item Analyze potential attack vectors and present robust resistance mechanisms.
+        \item Discuss potential applications and benefits of the competence framework.
+    \end{itemize}
+
+    \section{Protocol description}
+
+    Protocol is based on breaking participants in to smaller groups with singular purpose of electing a winner. This process of election can be implemented as any kind of game or more generally data exchange between participants and is not discussed in this paper.
+
+    There are two distinct principal constant values defining a protocol: (1) principal time constant $P_t$ and (2) principal asset cost $P_c$ and a boundary case limitation $N_{min}$ - minimum number of participants required to form a group.
+
+    Every group has following it's own properties:
+    \begin{itemize}[nosep]
+        \item id - a protocol wide unique group identifier
+        \item $N$ - number of participants
+        \item $T$ - minimum time to finalize election
+        \item $R$ - rank
+        \item $S$ -  state - can be one of following:
+              \begin{itemize}[nosep]
+                  \item \textbf{created} - group is created and waiting for participants to join
+                  \item \textbf{started} - group is started $ts_i$ time of start is recorded
+                  \item \textbf{finalized} - group is finalized
+              \end{itemize}
+              % \item $X$ - stake requirement
+    \end{itemize}
+
+
+    Beyond that, for every participant there are two global properties:
+    \begin{itemize}[nosep]
+        \item  $P_r$ - rank of participant
+        \item $P_g$ - group id last joined by participant
+    \end{itemize}
+
+    Participants can change groups only as long as their current and target group are not in "started" state. Whenever a group is started, it is expected to have at least $N_{min}$ participants and it must cause irreversible stake of participation $X_i$ to all participants balance:
+    \begin{equation}
+        \label{eq:group-fee}
+        X_{id} = f(T_{id}) = \dfrac{P_t \cdot  P_c }{T_{id}}
+    \end{equation}
+
+    these costs further can be broken down in to equal stake subtracted from each participant account on game start state:
+    \begin{equation}
+        \label{eq:join-fee}
+        stake = \dfrac{X_{id}}{ N_{id}}
+    \end{equation}
+    \input{ladder.tex}
+    Whenever $T_{i}$ has elapsed since group start state transition, the group can be finalized. Then a winner can be declared and his rank $P_r$ in the state trie incremented to $P_r=P_r+1$ only if group rank $R$ is equal to $P_r$ before finalization. This process can be repeated and is illustrated on Fig. \ref*{fig:game-connection}.
+
+    The staked assets further distributed in such manner that would avoid creation of positive feedback loop between groups and participants. Simples example of such would be nullifying these assets, therefore considering that $R+1$ state transition has intrinsic cost of $X_{id}$.
+
+
+    \paragraph{Dynamic Proof-of-Authority.} As one can notice, the transfer of state is unidirectional from assets in to rank, and is time dependant, every transition can be seen as differential equation cost:
+    \begin{equation}
+        \label{eq:time-weighted-proof-of-authority}
+        \$P_r = \$(P_r-1) + X_{id}
+    \end{equation}
+    while the rate of obtaining any rank $P_r$ itself is a unit step function dependent on time $t$:
+    \begin{equation}
+        \label{eq:time-weighted-proof-of-authority-1}
+        P_r(t) = \lfloor \dfrac{t \cdot P_t \cdot P_c}{T_{min}} \rfloor
+    \end{equation}
+
+    This observation in Eq. \ref{eq:time-weighted-proof-of-authority-1} highlights the dynamic nature of the protocol and its ability to adjust to changes in the system. Since it is showing linear-time invariant property, the dynamic systems theory may be applied to the protocol to analyze its stability and predict its future behavior.
+
+
+
+    \section{Sybil attack resistance}
+    Ultimate outcome of protocol is representation of competence of an agent by storing his $R$ rank in the state trie. In order to ensure that such representation is not subject to manipulation, we must analyze security concerns.
+
+    From a game theoretic perspective, adversary can be a group that produces a winner with $R$ rank that is higher than any other group in the system. However payment requirement defined in Eq. \ref{eq:group-fee} will be proportional to the number of participants in the group, contrary to the stake requirement fair participant is expected to pay (Eq. \ref{eq:join-fee}).
+
+    While principal components defining fees allows ensure that any winner produced by any group is time and asset effort normalized.
+    For example, in case of $T_{min} = P_t$, then equation \ref{eq:group-fee} reduces to:
+    \begin{equation}
+        \label{eq:join-fee-2}
+        X_i = P_c
+    \end{equation}
+
+    If state transition of one participant's rank $R$ requires a commitment from $N_{min}$ participants, such as a participation fee $X_i$, we can demonstrate that the proposed ranking ladder introduces a non-linear compounding friction for potential malicious actors attempting to manipulate the system.
+
+    For such an adversary the particular strategy depends strongly on the particular application of how the agents actually decide on the winner. If such a process is deterministic, the expected cost is simply
+    \begin{equation}\
+        \label{eq:direct-sybil-cost}
+        X_g \cdot N_{min}^R
+    \end{equation}. If an adversary is able to mix in with fair agents who are not sybils, and the process is not fully deterministic, then we can use the mathematical expectation for costs achieving specific rank via sybil attack described as
+    \begin{equation}
+        \mathbb{E}[\$R] = X_g \cdot \mathbb{E}[N_{\text{sybils}}(R)]
+    \end{equation}
+
+    Where $N_{sybils}(R)$ is a number of sybil accounts required to take quorum in a group, and hence obtain rank $R$.
+
+    \paragraph{Actor likeleness and group fragmentation.}
+    From Eq. \ref{eq:direct-sybil-cost} it can be seen that higher groups generally will be more expensive to manipulate, however in practice breaking groups in smaller may be desired to prevent overcomplexity of needed communication. This would imply that due to group fragmentation, an attacker mixing sybil accounts with fair players must strategically allocate accounts across groups for cost efficiency.
+
+    Ability for participants to reason about the likelihood of a specific group to be a sybil attack is important in that context. If it seems like a group is likely to be a sybil attack, participants must be able to choose to not join the group. This can be done by reviewing the past state history of participants, groups he is joining and social graph arising from how votes are being allocated.
+
+    While this may seem challenging, protocols like Continuous Voting Proposing Protocol (CVPP) \cite{cvpp} offer a clear definitions for system that will be transparent and easy to reason about.
+
+    Additionally, we can use verification mechanisms, such as proof of location \cite{sheng2024bftpolocbyzantinefortifiedtrigonometric} or proof of personhood \cite{WorldCoin2024} or from use of quadratic voting systems which already shown to be helpful in blockchain governance field \cite{Buterin20}\cite{Benhaim2024}.
+
+    If all results are visible and easy to reason about, then, from outset, this means that for any protocol participant, confidence over group conducting a sybil attack will increase as $R$ of group increase, hence they will be more likely to refuse joining group with such, resulting a sybil attack cost close to Eq. \ref{eq:direct-sybil-cost}:
+    \begin{equation}
+        \lim_{R \to \infty} \mathbb{E}[N_{\text{sybils}}(R)] = N_{\text{min}}
+        \label{eq:limit-nmin}
+    \end{equation} Where $N_{min}$ is amount of peers required to join the group. Hence, Eq. \ref{eq:direct-sybil-cost} can be used to estimate cost of sybil attack. At the same time, for the agent who is relying on his pure competence and wins each group fairly, by being able to align agents to vote for him, same cost would be only \begin{equation}
+        \$R = stake*R
+    \end{equation}
+    Hence, the agent competence can be put at stake when making a any arbitrary decision that uses $R$ as stake. This may take form of taking privileged action with optimistic approval and so on, only condition required to keep agent game-theoretically fair is that action impact must be lower than the cost of obtaining rank.
+    \begin{equation}
+        \$TVL <<  X_g \cdot N_{min}^R
+    \end{equation}
+
+    Total value locked must be substantially lower then a cost for obtaining rank due to reason that empirical studies are needed to see how fast will required sybil count converge (Eq. \ref{eq:limit-nmin}) in practice with a different voting systems. This strongly depends on how much stochastic and transparent is such a process.
+
+
+    \subsection{Time constraint}
+    \label{sec:time-constraint}
+
+    As discussed in the previous section, any overt sybil attack requires multiple groups to be held in order to establish a sufficient ranking within the system.
+
+    Therefore, the intrinsic value of a tokenized competence rating is determined not only by financial effort and success among peers but also by the time invested in continuously improving one's position within the system. Even with parallel attack instances, an attacker would still require $t_{attack}(R) = t_c \cdot R$ time to reach rank $R$. This extended duration allows protocol members ample opportunity to detect and respond to the attack.
+    Moreover, the Eq. \ref{eq:time-weighted-proof-of-authority-1} shows that system can be analyzed in time and frequency domains, hence it is possible to analyze sybil attacks not just as a function of time, but also as a function of phase, use complex frequency domain analysis etc.
+
+    \section{Conclusion}
+
+    This paper introduces a novel protocol for establishing a dynamic ranking ladder system in trustless environments. By leveraging game-theoretic principles and dynamic systems theory, our protocol enables the autonomous identification of competence while mitigating Sybil attacks. The time-based and cost-based mechanisms ensure that achieving high ranks requires genuine effort and skill.
+
+    This protocol offers a promising foundation for building more robust and equitable decentralized governance systems. It has the potential to improve blockchain consensus mechanisms, enhance DAO decision-making, and foster healthier online communities. Further work is required to analyze the protocol's behavior and effectiveness using dynamic system theory and to explore its integration with existing decentralized platforms.
+
+
+    \clearpage
+
+    % \appendix
+    % \section{Appendix A: Listings}
+    % \input{algo}
+    % \clearpage
+    \bibliographystyle{ieeetr}
+    \bibliography{../references.bib}
+
+    \clearpage\end{CJK}
+\end{document}

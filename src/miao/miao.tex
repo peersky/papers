@@ -1,0 +1,137 @@
+\documentclass{article}
+\usepackage{CJKutf8}
+\usepackage{multicol}
+% Packages
+\usepackage{lipsum} % For generating dummy text
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,shapes,positioning,calc,fit}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{caption}
+\captionsetup{font=small}
+\usepackage{standalone}
+\usepackage{listings}
+\usepackage{xcolor} % For setting colors
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{afterpage}
+\usepackage{placeins}
+\usepackage{enumitem}
+\pgfplotsset{compat=1.17} % Ensure compatibility with newer features
+
+\lstset{
+  language=[LaTeX]TeX,
+  breaklines=true,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green},
+  backgroundcolor=\color{gray!10},
+  frame=single,
+  showspaces=false,
+  showstringspaces=false,
+}
+\pgfplotsset{compat=1.17} % Use this to ensure compatibility with newer features
+% \setlength{\parskip}{6pt}
+% Title and author
+\title{Peeramid Protocol}
+
+
+\author{Peeramid Labs}
+
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+    % \twocolumn
+    \maketitle
+
+
+    \begin{abstract}
+        This paper we introduce a decentralized protocol which establishes agent intent recognition (competence) markets in form of algorithmic stablecoin that is pegged to base currencies like Ethereum, allowing users to establish peer-to-peer, hierarchical social-layer that is meritocratic and competence value based as well as supply wise pegged to the base currency of the underlying execution layer.
+    \end{abstract}
+
+    \begin{multicols}{2}
+        \section{Introduction}The blockchain community has evolved into a vibrant ecosystem of collectives and organizations that mostly rely on social consensus for decision-making in aligning their protocol development. These collectives often depend in their success on the underlying utility they provide, as example, Ethereum protocol is a platform for decentralized applications, where native ETH currency is used to pay for transaction fees and computational services. Beyond this utility the community of Ethereum researchers and developers contributes also to goods and services that are not represented by ETH (or any other base asset) price directly. Such includes developing public goods research and development that is a fundamental pillar of open source software development, and mankind progress in general. This creates a sub optimal situation where the value of the goods and services produced by the community is not directly pegged to the base currency of the underlying consensus. Projects bypassing this would issue own tokens that however usually are not pegged to the broader ecosystem and therefore have no autonomy and as was summarized in \cite{PeerskyACID2024} often provide lack of performance and participation. This situation leads to problem, which can be plagued by the "tragedy of the commons" problem, where participants are forced to act in their self-interest, leading to suboptimal outcomes for the collective.
+        The Peeramid Protocol aims to address this issue by introducing a new kind of utility token, that is pegged to the underlying base currency such as ETH and in a way that it represents a social aspect of the community in a way that is meritocratic and competence based.
+        \input{./diagram1.tex}
+
+
+        \section{Competence Protocol}
+
+        The Peeramid competence protocol establishes a utility token that function as a social layer on top of the base automated (objective) consensus rules. This token, issued at pre-determined saturation function that ties utility cost to the supply, is used as an entry gateway to create a merit specific tokens as derivation of the base token. This derivation creates market driven, long-term algorithmically stable ecosystem that can provides competence as a service. The competence is established by the autonomous competence identification framework proposed in \cite{PeerskyACID2024}.
+
+        \subsection*{PAD token}
+
+        The Peeramid Autonomous Derivation (PAD) token is a utility token that is pegged to the base currency of the underlying consensus.
+
+        \paragraph*{Issuance of the token} is done by burning base asset as collateral commitment using a saturation function that defines amount of base asset to be burned as:
+        \begin{equation}
+            \label{eq:cost}
+            f(issued)=c1*(1-e^{(-issued*c2)})
+        \end{equation}
+
+        where $issued$ represents the total number of PAD tokens issued, and $c1$ and $c2$ are constants that define the saturation function limit value and speed of transition accordingly. \\The cost of minting the token increases with the number of tokens issued, in a way that is same predictable and stable as Bitcoin Proof-of-Work issuance, with that difference that in PoW the issuance is a subject of exponential decay $\propto e^{-n}$ (where $n$ is block number), while in PAD exponentially decaying is the ability to enter the protocol in favorable, transitional pricing zone, without however hard fixing the supply rate.
+
+        \paragraph{Utility of PAD} Being just a generic token, this can be elaborated in any way that drives demand for it by holders.
+        In a way, such utility can be compared to Eigenlayer restacking with that difference that Peeramid Protocol participants are provided with unidirectional way to convert base asset to competence value, while the other way around is left for free market to decide.
+
+        This implies that the holders are incentivized to collaborate and provide utilities that would allow liquidity to flow back to the base asset.
+
+        \paragraph{Transitional process significance} is that it allows for the early adopters to enter the protocol at a favorable price, while the late adopters are subject to the higher cost of entry. This creates a semi-stable pricing mechanism that incentivizes early participation in the protocol.
+
+        \section{Use cases} Example of such could be a DAO that facilitates the development of public goods research via autonomous competence protocol (League blocks at Fig.\ref{fig:dao-composition}). For anyone interested in participating in such, fully autonomous discussion and obtaining a valuable peer-to-peer review, the PAD token would be the entry point to that specific discussion. The value of such discussion further would get tokenized, therefore creating a market for the competence value of the participants. \\
+
+        In generally, this can be seen as more general case and valuable way for new and existing decentralized organization to increase their value and sub-divide it in a way that is more transparent and recognized engagement driven.
+
+
+
+
+        % \section{Token Economics}
+        % Minting the token, MIAO, represents a commitment to the organization and its principles. The minting function cost (in base currency) is defined as:
+        % \begin{equation}
+        %     \ref{eq:cost}
+        %     T = 2^{256} * (1 - \exp(-t / (1*10^7)))
+        % \end{equation}
+        % where $t$ represents time in seconds.
+
+        % \begin{tikzpicture}
+        %     \begin{axis}[ ymin=0, ymax=3*10^77, xmin=0, xmax=630720000,xtick={0, 157680000, 315360000, 473040000, 630720000}, xticklabels = {0,5,10,15,20}]
+        %         \addplot [thick, red] {2^256 * (1 - exp(-x / (1 * 10^7)))};
+        %     \end{axis}
+        % \end{tikzpicture}
+
+
+
+        % When a token is minted, 50\% of the cost is burned, and the remaining 50\% is added to the DAO's balance. This incentivizes participants to hold the token and contributes to the semi-stable pricing of the memecoin.
+
+        % \section{DAO Formation}
+        % The root DAO will be formed using the initial treasury allocation from the minted tokens. The distribution of funds is as follows:
+        % \begin{itemize}
+        %     \item Team allocation: 5\%
+        %     \item DAO initial treasury: 25\%
+        % \end{itemize}
+
+        % The remaining funds are distributed through a token generation event (TGE) to early adopters and supporters of the project.
+
+        % \section{Governance and Exit Strategies}
+        % Participants can acquire governance power by holding the memecoin. The governance weight $W_g$ for participant $j$ is defined as:
+        % \begin{equation}
+        %     W_{gj} = R_j * X_{gj} * \mathbb{E}[N_{sybils_j}]^{R_j}
+        % \end{equation}
+        % where $X_{gj}$ represents the number of memecoins held by participant $j$, and $\mathbb{E}[N_{sybils_j}]$ is the expected number of sybil attacks mitigated by participant $j$.
+
+        % High-scoring participants can "exit" the competence protocol by transferring their tokens to the DAO's balance, effectively converting their competence into governance power within the underlying organization (Fig.).
+
+        % \section{Conclusion}
+        % The proposed tokenomics model for the memecoin creates a root DAO for a proposed organization, ensuring semi-stable pricing and incentivizing participation in the DAO. The logarithmic minting function, along with the burn mechanism and DAO treasury allocation, contributes to the long-term sustainability of the project.
+
+    \end{multicols}
+
+    \bibliographystyle{ieeetr}
+    \bibliography{../references.bib}
+
+    \clearpage\end{CJK}
+\end{document}

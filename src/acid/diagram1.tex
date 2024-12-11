@@ -1,0 +1,23 @@
+\documentclass{standalone}
+\usepackage{pgf-umlsd}
+
+\begin{document}
+\begin{sequencediagram}
+    \centering
+    \newthread{p}{Participant}
+    \newinst[1]{gm}{Game Master}
+    \newinst[1]{sc}{Smart Contract}
+        \begin{call}{p}{Proposal (Turn:N)}{gm}{}
+            \begin{call}{gm}{Announce}{sc}{}
+            \end{call}
+    \end{call}
+        \begin{sdblock}{Voting Phase}{}
+        \begin{call}{p}{Vote (Turn:N-1)}{gm}{}
+            \begin{call}{gm}{Collect Votes N}{sc}{}
+            \end{call}
+        \end{call}
+    \end{sdblock}
+    \begin{call}{gm}{Reveal Results}{sc}{}
+    \end{call}
+\end{sequencediagram}
+\end{document}
