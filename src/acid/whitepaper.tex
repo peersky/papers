@@ -6,6 +6,7 @@
 \usepackage[top=1in, bottom=1in, left=1in, right=1in]{geometry}
 \usepackage{hyperref}
 \usepackage{pgfplots}
+\usetikzlibrary{pgfplots.polar}
 \usepackage{caption}
 \captionsetup{font=small}
 \usepackage{standalone}
@@ -47,12 +48,12 @@
 
 
     \begin{abstract}
-        Decentralized systems often struggle to identify and reward competence objectively. This paper proposes a novel protocol for establishing a dynamic ranking ladder system within trustless environments. By leveraging game-theoretic principles and dynamic systems theory, our protocol enables the autonomous identification of competence while mitigating Sybil attacks. Participants engage in competitive "elections" within tiered groups, with winners progressing to higher ranks. This process creates a quantifiable and verifiable measure of competence, represented by a tokenized rating. The protocol's time-based and cost-based mechanisms ensure that achieving high ranks requires genuine effort and skill, making it resistant to manipulation.  Potential applications include blockchain consensus, decentralized social networks, and DAO governance.
+        Meritocratic systems often struggle to identify and reward competence objectively. This paper proposes a novel protocol for establishing a dynamic ranking ladder system within trustless environments. By leveraging game-theoretic principles and dynamic systems theory, our protocol enables the autonomous identification of competence while mitigating potential sybil attacks. Participants engage in competitive "elections" within time-locked, tiered groups, with winners progressing to higher ranks. This process creates a quantifiable and verifiable measure of competence, represented by a tokenized rating. The protocol's time-based and cost-based mechanisms ensure that achieving high ranks requires genuine effort and skill, making it resistant to manipulation.  Potential applications include merit based blockchain consensus, decentralized social networks, DAO governance.
     \end{abstract}
 
     \section{Introduction}
 
-    Traditional meritocratic models often falter due to the inherent difficulty of objectively identifying and rewarding competence.\cite{Arrow2000} This challenge is amplified in decentralized systems, where trust is minimized and the potential for manipulation is high. Existing consensus mechanisms, such as Proof-of-Work and Proof-of-Stake, primarily rely on resource expenditure or direct asset ownership, which may not accurately reflect true competence.
+    Traditional meritocratic models often falter due to the inherent difficulty of objectively identifying and rewarding competence.\cite{Arrow2000} This challenge is amplified in decentralized systems, where trust is minimized and the potential for manipulation is high. Existing consensus mechanisms, such as Proof-of-Work and Proof-of-Stake, may only proof that participant has either computational or financial power, but not necessarily competence needed, for example, to govern the protocol development. This hinders ability of decentralized systems developers to create robust governance and funding mechanisms that would be not pure power based, but also competence based.\cite{Rainer2023}\cite{Robin22} Ultimately leading researchers questioning viability of decentralized organizations as a concept.\cite{Xuan2024}
 
     This paper introduces a novel protocol designed to address this gap by establishing a dynamic ranking ladder system. Our protocol incentivizes participants to demonstrate their abilities through competitive "elections" within tiered groups. By requiring both time and financial commitment, we create a system that is resistant to Sybil attacks and fosters genuine competence development. This approach can be applied to various decentralized systems, including blockchain consensus mechanisms, where it can contribute to more robust and equitable governance.
 
@@ -64,17 +65,19 @@
         \item Discuss potential applications and benefits of the competence framework.
     \end{itemize}
 
+    It is important to note that the proposed protocol is a theoretical construct that relies on having already established consensus mechanism to facilitate the protocol operation. Such could be executed on top of existing blockchain consensus mechanisms.
+
     \section{Protocol description}
 
-    Protocol is based on breaking participants in to smaller groups with singular purpose of electing a winner. This process of election can be implemented as any kind of game or more generally data exchange between participants and is not discussed in this paper.
+    Protocol is based on breaking participants in to smaller groups with singular purpose of electing a winner. This process of election can be implemented as any sub-protocol that can take form of block building challenge, community discussion or more generally data exchange between participants and is not discussed in this paper. The only importance is that it must take multiple participants that must agree on leader, and that leader must be able to be verified by all participants.
 
-    There are two distinct principal constant values defining a protocol: (1) principal time constant $P_t$ and (2) principal asset cost $P_c$ and a boundary case limitation $N_{min}$ - minimum number of participants required to form a group.
+    In order to make such groups interoperable based on same trust assumptions, yet free to define their own participation parameters, we introduce two distinct principal constant values constituting our protocol: (1) principal time constant $P_t$ and (2) principal asset cost $P_c$. These serve to create a common price and time relationship between any group to each other. We also add boundary case limitation $N_{min}$ - minimum number of participants required to form a group.
 
-    Every group has following it's own properties:
+    Beside protocol wide constants, we allow Every group to have own properties:
     \begin{itemize}[nosep]
         \item id - a protocol wide unique group identifier
         \item $N$ - number of participants
-        \item $T$ - minimum time to finalize election
+        \item $T$ - minimum time, agreed by members, that's needed to finalize election
         \item $R$ - rank
         \item $S$ -  state - can be one of following:
               \begin{itemize}[nosep]
@@ -98,15 +101,15 @@
         X_{id} = f(T_{id}) = \dfrac{P_t \cdot  P_c }{T_{id}}
     \end{equation}
 
-    these costs further can be broken down in to equal stake subtracted from each participant account on game start state:
+    these costs further can be broken down in to equal stake subtracted from each participant account whenever group changes it's state to "started":
     \begin{equation}
         \label{eq:join-fee}
         stake = \dfrac{X_{id}}{ N_{id}}
     \end{equation}
     \input{ladder.tex}
-    Whenever $T_{i}$ has elapsed since group start state transition, the group can be finalized. Then a winner can be declared and his rank $P_r$ in the state trie incremented to $P_r=P_r+1$ only if group rank $R$ is equal to $P_r$ before finalization. This process can be repeated and is illustrated on Fig. \ref*{fig:game-connection}.
+    the group can be finalized only after $T_{i}$ has elapsed since group start state transition. Then a winner can be declared and his rank $P_r$ in the state trie incremented to $P_r=P_r+1$ only if group rank $R$ is equal to $P_r$ before finalization. This process can be repeated and is illustrated on Fig. \ref*{fig:game-connection}.
 
-    The staked assets further distributed in such manner that would avoid creation of positive feedback loop between groups and participants. Simples example of such would be nullifying these assets, therefore considering that $R+1$ state transition has intrinsic cost of $X_{id}$.
+    The staked assets further distributed in such manner that would avoid creation of positive feedback loop between groups and participants. Example of such would be nullifying these assets, therefore considering that $R+1$ state transition has intrinsic cost of $X_{id}$.
 
 
     \paragraph{Dynamic Proof-of-Authority.} As one can notice, the transfer of state is unidirectional from assets in to rank, and is time dependant, every transition can be seen as differential equation cost:
@@ -120,7 +123,9 @@
         P_r(t) = \lfloor \dfrac{t \cdot P_t \cdot P_c}{T_{min}} \rfloor
     \end{equation}
 
-    This observation in Eq. \ref{eq:time-weighted-proof-of-authority-1} highlights the dynamic nature of the protocol and its ability to adjust to changes in the system. Since it is showing linear-time invariant property, the dynamic systems theory may be applied to the protocol to analyze its stability and predict its future behavior.
+    \paragraph*{Frequency domain.}Observation in Eq.\ref{eq:time-weighted-proof-of-authority-1} highlights the dynamic nature of the protocol. Since it is showing linear-time invariant property, the dynamic systems theory\cite{Lynn86} may be applied to the protocol to analyze its stability and predict its future behavior.
+
+    For example, $1/T_{min}$ represents frequency, hence analysis can be applied to understand phase and frequency relationship between groups with all power and system may be analyzed in s-domain used Laplace transforms. Variety of participants using different ${T_{min}}$ would result a dynamic competence ladder that can produce specific quorums at specific time points.
 
 
 
@@ -152,9 +157,9 @@
     \paragraph{Actor likeleness and group fragmentation.}
     From Eq. \ref{eq:direct-sybil-cost} it can be seen that higher groups generally will be more expensive to manipulate, however in practice breaking groups in smaller may be desired to prevent overcomplexity of needed communication. This would imply that due to group fragmentation, an attacker mixing sybil accounts with fair players must strategically allocate accounts across groups for cost efficiency.
 
-    Ability for participants to reason about the likelihood of a specific group to be a sybil attack is important in that context. If it seems like a group is likely to be a sybil attack, participants must be able to choose to not join the group. This can be done by reviewing the past state history of participants, groups he is joining and social graph arising from how votes are being allocated.
+    Ability for participants to reason about the likelihood of a specific group to be a sybil attack is important in that context. If it seems like a group is likely to be a sybil attack, participants must be able to choose to not join the group. This can be done by reviewing the past state history of participants, groups he is joining and social graph arising from how votes are being allocated and can be done with dynamic systems methodology proposed in the end of previous section.
 
-    While this may seem challenging, protocols like Continuous Voting Proposing Protocol (CVPP) \cite{cvpp} offer a clear definitions for system that will be transparent and easy to reason about.
+    While providing this level of visibility for participants to reason about may seem challenging, protocols like Continuous Voting Proposing Protocol (CVPP) \cite{cvpp} offer a clear definitions for system that will be transparent and easy to reason about, while in general, an automated system can be used to analyze the state trie and provide a clear view of the system.
 
     Additionally, we can use verification mechanisms, such as proof of location \cite{sheng2024bftpolocbyzantinefortifiedtrigonometric} or proof of personhood \cite{WorldCoin2024} or from use of quadratic voting systems which already shown to be helpful in blockchain governance field \cite{Buterin20}\cite{Benhaim2024}.
 
@@ -173,7 +178,7 @@
     Total value locked must be substantially lower then a cost for obtaining rank due to reason that empirical studies are needed to see how fast will required sybil count converge (Eq. \ref{eq:limit-nmin}) in practice with a different voting systems. This strongly depends on how much stochastic and transparent is such a process.
 
 
-    \subsection{Time constraint}
+    \subsection{Quorum Resonances}
     \label{sec:time-constraint}
 
     As discussed in the previous section, any overt sybil attack requires multiple groups to be held in order to establish a sufficient ranking within the system.
@@ -181,11 +186,87 @@
     Therefore, the intrinsic value of a tokenized competence rating is determined not only by financial effort and success among peers but also by the time invested in continuously improving one's position within the system. Even with parallel attack instances, an attacker would still require $t_{attack}(R) = t_c \cdot R$ time to reach rank $R$. This extended duration allows protocol members ample opportunity to detect and respond to the attack.
     Moreover, the Eq. \ref{eq:time-weighted-proof-of-authority-1} shows that system can be analyzed in time and frequency domains, hence it is possible to analyze sybil attacks not just as a function of time, but also as a function of phase, use complex frequency domain analysis etc.
 
+    Also given the initial goal to facilitate protocol for a subjective reasoning matters, it is arguable what it even is - an "sybil attack" or just a "different opinion". Assuming there exist different opinions, and using the proposed s-domain methodology, competing opinion groups have a way of creating a quorum resonance, where the opinion direction itself can oscillate. All it takes it to have same $T_{min}$ for competing groups that begin their election process at phase difference of $\pi$. This can be visualized in following plot \Ref{fig:processes}.:
+
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}
+            % Define the x-axis
+            \draw[->] (0,0) -- (3*3.14,0) node[right] {$t$};
+
+            % Define the first process (point at Pi)
+            \draw[blue, thick] (3.14,0) circle (2pt);
+            \draw[blue, thick] (3.14*2,0) circle (2pt);
+            \node[] at (3.14*0.5,1.3) {$\pi/2$};
+            \node[] at (3.14,1.3) {$\pi$};
+            \node[] at (3.14*1.5,1.3) {$1.5\pi$};
+            \node[] at (3.14*2,1.3) {$2\pi$};
+
+            % Define the second process (point at Pi/2)
+            \draw[red, thick] (1.57,0) circle (2pt);
+            \draw[red, thick] (1.57+3.14,0) circle (2pt);
+
+            % Add labels for the timing diagram
+            \node at (1.57,-0.3) {Start A};
+            \node at (3.14,-0.3) {Start B};
+            \node at (3.14*2,-0.3) {End A};
+            \node at (1.57+3.14,-0.3) {End B};
+
+            % Add dashed lines to indicate the timing
+            \draw[dashed] (1.57,0) -- (1.57,1);
+            \draw[dashed] (3.14,0) -- (3.14,1);
+            \draw[dashed] (3.14*2,0) -- (3.14*2,1);
+            \draw[dashed] (1.57+3.14,0) -- (1.57+3.14,1);
+        \end{tikzpicture}
+        \caption{Timing diagram showing two opposite opinion groups finalizing their election process at different time points. The groups have the same $T_{min}$ but with a phase difference of $\pi$.}
+        \label{fig:processes}
+    \end{figure}
+
+    Further, more complicated systems can be imagined, if such groups are many and they allocate their power to reason in alliance manner, creating local quorum resonances, that can be analyzed in frequency domain, and can be used to predict future behavior of the system \ref{fig:processes-sinusoidal}.
+
+    \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}
+            % Define the x-axis
+            \draw[->] (0,0) -- (10,0) node[right] {$T_{min}$};
+
+            % Define the y-axis
+            \draw[->] (0,-2) -- (0,2) node[above] {Quorum power};
+
+            % Define the first process (sine wave)
+            \draw[domain=0:10,smooth,variable=\t,blue] plot ({\t},{sin(360*\t/10)});
+            \node[blue] at (10,1) {Opinion 1};
+
+            % Define the second process (sine wave shifted by half period)
+            \draw[domain=0:10,smooth,variable=\t,red] plot ({\t},{sin(360*\t/10 + 180)});
+            \node[red] at (10,-1) {Opinion 2};
+
+            % Add labels for the half period shift
+            \draw[dashed] (5,-2) -- (5,2);
+            \node at (5,-2.5) {$\pi$};
+
+            % Add labels for the full period
+            \draw[dashed] (10,-2) -- (10,2);
+            \node at (10,-2.5) {$2\pi$};
+
+        \end{tikzpicture}
+        \caption{Diagram showing two competing group sets over same subject having their groups $T_min$ same but with same phase difference of $\pi$. Sinusoidal waves are for illustrative purpose, in reality, the groups would have different $T_{min}$ and could be more complex
+            \label{fig:processes-sinusoidal}}
+    \end{figure}
+
+    From this diagram we can see that two opposite opinions can take quorums in different time $t$.
+
     \section{Conclusion}
 
-    This paper introduces a novel protocol for establishing a dynamic ranking ladder system in trustless environments. By leveraging game-theoretic principles and dynamic systems theory, our protocol enables the autonomous identification of competence while mitigating Sybil attacks. The time-based and cost-based mechanisms ensure that achieving high ranks requires genuine effort and skill.
+    This paper introduces a novel protocol for establishing a dynamic ranking ladder system in trustless environments. By leveraging game-theoretic principles and dynamic systems theory, our protocol enables the autonomous identification of competence while mitigating Sybil attacks. The time-based and cost-based mechanisms ensure that achieving high ranks requires genuine effort and skill and even completely opposite opinions have ability to co-exist.
 
-    This protocol offers a promising foundation for building more robust and equitable decentralized governance systems. It has the potential to improve blockchain consensus mechanisms, enhance DAO decision-making, and foster healthier online communities. Further work is required to analyze the protocol's behavior and effectiveness using dynamic system theory and to explore its integration with existing decentralized platforms.
+    This protocol offers a promising foundation for building more robust and equitable decentralized governance systems. It has the potential to improve blockchain consensus mechanisms, enhance DAO decision-making, and foster healthier online communities.
+
+    Further work is required to analyze the protocol's behavior and effectiveness using dynamic system theory and to explore its integration with existing decentralized platforms.
+
+
+
+
 
 
     \clearpage
