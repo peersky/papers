@@ -20,20 +20,20 @@
 \usepackage{tikz}
 \usepackage{enumitem}
 \lstset{
-  language=[LaTeX]TeX,
-  breaklines=true,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{blue},
-  commentstyle=\color{green},
-  backgroundcolor=\color{gray!10},
-  frame=single,
-  showspaces=false,
-  showstringspaces=false,
+    language=[LaTeX]TeX,
+    breaklines=true,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green},
+    backgroundcolor=\color{gray!10},
+    frame=single,
+    showspaces=false,
+    showstringspaces=false,
 }
 \pgfplotsset{compat=1.17} % Use this to ensure compatibility with newer features
 \setlength{\parskip}{6pt}
 % Title and author
-\title{Continuous Voting Proposing Protocol for ordering group intents}
+\title{Continuous Voting-Proposing Protocol for Ordering Group Intents}
 
 \author{Tims Pecerskis, Aivars Smirnovs, Alesya Soboleva}
 
@@ -44,135 +44,122 @@
     % \twocolumn
     \maketitle
 
-
     \begin{abstract}
-        We present the Continuous Voting Proposing Protocol (CVPP), a novel framework for ordering group intents and facilitating collaborative decision-making. The protocol introduces a structured approach to social coordination that combines continuous voting with proposal mechanisms, enabling groups to reach consensus while maintaining individual autonomy. Through empirical evaluation in music playlist curation, we demonstrate the protocol's effectiveness with high user satisfaction rates (88\% overall experience, 92\% playlist quality) and its ability to surface diverse, high-quality proposals. The protocol's applications extend to software development, decentralized autonomous organizations (DAOs), and delegate selection, offering a flexible foundation for democratic systems while mitigating common coordination challenges such as low participation and bias. Our results suggest that CVPP can effectively balance individual preferences with group consensus, providing a gamified yet practical framework for collective decision-making and AI agent training.
+        We present the Continuous Voting Proposing Protocol (CVPP), a novel framework for ordering group intents and facilitating collaborative decision-making. The protocol combines continuous voting with proposal mechanisms, enabling consensus while maintaining individual autonomy. Through empirical evaluation in music playlist curation, we demonstrate its effectiveness with high user satisfaction rates (88\% overall experience, 92\% playlist quality) and its ability to surface diverse, high-quality proposals. Applications extend to software development, decentralized autonomous organizations (DAOs), and delegate selection, offering a flexible foundation for democratic systems while mitigating coordination challenges like low participation and bias. Our results show that CVPP can balance individual preferences with group consensus, providing a gamified yet practical framework for collective decision-making and AI agent training.
     \end{abstract}
     \begin{multicols}{2}
 
         \section{Introduction}
 
-        This paper presents a continuous voting-proposing protocol, inspired by a online text based table-top like chat game played within a small community of Lithuanian artists who moved abroad and implemented this as simple and fun method of maintaining connections with their friends and family across different time zones and countries based on shared interest topic.
+        This paper presents a continuous voting-proposing protocol inspired by an online text-based tabletop game played by Lithuanian artists abroad to maintain connections with friends and family across time zones and countries based on shared interest topics.
 
-        In this paper we extrapolate the protocol from this real-life case, analyze it's properties as well as review some statistics and engagement metrics of the existing use case which we further enchase with own prototype study.
+        In this paper, we extrapolate the protocol from this real-life case, analyze its properties, and review the statistics and engagement metrics of the existing use case, enhanced with our prototype study.
 
         \section{Background}
 
-        The quest for consensus is a cornerstone of collective decision-making, has deep historical roots. From the ancient Chinese concept of \textit{zhongyong} {\CJKfamily{bsmi}中庸}, advocating for moderation and balance in governance, to the Roman Republic's emphasis on \textit{senatus consulta} (senate decrees) reached through deliberation and compromise, societies have long grappled with the challenge of aligning diverse perspectives towards a common goal. The study of these historical precedents continues to inform modern approaches to consensus \cite{Andersen2019} \cite{Frederic2014}.
+        The quest for consensus is a cornerstone of collective decision-making with deep historical roots. From the ancient Chinese concept of \textit{zhongyong} {\CJKfamily{bsmi}中庸}, advocating moderation and balance in governance, to the Roman Republic's emphasis on \textit{senatus consulta} (senate decrees) reached through deliberation and compromise. The study of these historical precedents informs modern approaches to consensus \cite{Andersen2019} \cite{Frederic2014}.
 
-        \paragraph{Decision making in reasearch} has a long-standing backlog of unresolved problems, amongst those are agenda manipulation problem that shows that generally democratic voting outcomes in multiple iterations have non-transitivity property which may be used to lead to any desired outcome given limited agenda items\cite{McKelvey1976}. This problem, described back in 80s, today becomes as prominent as it could be, given the advancements in Artificial Intelligence and market studies, that effectively mean better ability to predict participant preferences. Participation rates (turnout) is also being studied and seen to be in decline in major countries over past decades \cite{Lawrence23}\cite{Filip24} and recent research on Decentralized Autonomous Organizations (DAOs) confirms that\cite{Rainer2023}\cite{Marcella2016}\cite{Xuan2024}.
-        \paragraph{The meritocratic models} where leadership is based on ability, has been hampered by a fundamental issue: the reliable and autonomous identification of competence. As researchers have argued\cite{Arrow2000}, the inability to objectively assess merit creates vulnerabilities to manipulation and power struggles, limiting the practical application of such systems.
-
-
-        \paragraph{Proposed Protocol origins}\label{sec:protocol_origins}
-        The foundation of this research stems from a game played by a small Lithuanian community in online chat since 2017. Initially designed for leisure and staying in touch with friends, this table top game goal is sharing music to form collaborative playlists ordered by highest ranking proposal. This game has unexpectedly exhibited properties desirable in governance protocols.
-        In original idea, participants collective goal is form a music playlist of 100 songs length that is created on youtube and is ordered by the high scoring song, creating a community governed charter\cite{DariusYoutube}.
-
-        This protocol is limited to fairly small group of participants (5-10) because of communicational complexity, however shows great properties as long as participant count is moderate.
-        It also demonstrates high participation and retention rates, suggesting potential for adaptation as a governance protocol (elaborated in case study section). The primary limitation lies in participants' inclination towards specific interests (music in this case) or groups of people.
-
-
-        \paragraph{Empirical data.} We analyzed a group's activity and historical records in a music-sharing game \cite{DariusYoutube}. Participants share YouTube music clips, forming playlists. From 2017 to 2023, 17 games were played, each averaging 13 turns, 8 participants, and 3 months duration. Roughly 1700 proposals and votes were recorded, with a 100-song playlist limit per game.\\
-        Over the years, 34 participants joined, 22 completing at least one tournament and 15 completing at least two. Of the original 6 players, 3 remain active, with 8 active users in the latest game. Non-voting instances were negligible, below 5\% of all votes. \\
-        Despite lacking explicit incentives and requiring effort as occasional game masters, participation rates were remarkably high:
+        \paragraph{Decision making in research} has a backlog of unresolved problems, including agenda manipulation that shows democratic voting outcomes in multiple iterations have non-transitivity, which may lead to any desired outcome given limited items\cite{McKelvey1976}. This problem, described back in the 80s, is now prominent due to advancements in AI and market studies, meaning better ability to predict preferences. Participation rates (turnout) are declining in major countries over the past decades \cite{Lawrence23}\cite{Filip24}, and recent research on Decentralized Autonomous Organizations (DAOs) confirms that\cite{Rainer2023}\cite{Marcella2016}\cite{Xuan2024}.
+        \paragraph{Meritocratic models} have been hampered by a fundamental issue: the reliable and autonomous identification of competence, where leadership is based on ability. Researchers have argued\cite{Arrow2000} that the inability to objectively assess merit creates vulnerabilities to manipulation and power struggles, limiting the practical application of such systems.
+        \paragraph{Proposed Protocol Origins}\label{sec:protocol_origins}
+        This research stems from a game played by a small Lithuanian community in online chat since 2017. This tabletop game, initially designed for leisure and staying in touch with friends, has a goal to share music to form collaborative playlists ordered by the highest-ranking proposal. It has exhibited properties desirable in governance protocols.
+        Participants’ goal is to create a 100-song YouTube playlist ordered by the highest scoring song and to create a community-governed charter\cite{DariusYoutube}.
+        This protocol is limited to a small group of participants (5-10) due to communication complexity, but it shows great properties with a moderate count.
+        It shows high participation and retention rates, suggesting potential for adaptation as a governance protocol (elaborated in case study section). The primary limitation is participants' inclination towards specific interests (music) or groups.
+        \paragraph{Empirical data.} We analyzed a group's activity and records in a music-sharing game \cite{DariusYoutube}. Participants share YouTube music clips, forming playlists. From 2017 to 2023, 17 games were played, averaging 13 turns, 8 participants, and 3 months duration. About 1700 proposals and votes were recorded, with a 100-song playlist limit per game. Over the years, 34 participants joined, 22 completed at least one tournament, and 15 completed at least two. Of the original 6 players, 3 remain active, with 8 users in the latest game. Non-voting instances were negligible, below 5\% of all votes. \\
+        Participation rates were high, despite lacking explicit incentives and occasional game master duties:
         \begin{itemize}[nosep]
             \item \textbf{Participation rate} of 95\% for active users
-            \item \textbf{User retention} for three month period of 65\%
-            \item \textbf{User retention} for two tournaments and roughly six month of 44\%
-            \item \textbf{User retention} after 72 month of 9\%
-            \item Average of \textbf{8 proposals and votes per user} per annum
+            \item \textbf{User retention} for three months of 65\%
+            \item \textbf{User retention} for two tournaments and six months of 44\%
+            \item \textbf{User retention} after 72 months of 9\%
+            \item Average of \textbf{8 proposals and votes per user} per year
         \end{itemize}
 
-        The low absolute numbers however are explainable by user complex manual score calculation process and closed community by itself which never oriented itself towards big growth and hence let to do assertion that could be even higher on a well designed automated protocol.
+        However, the low absolute numbers are due to the complex manual score calculation process and a closed community that never aimed for big growth. This suggests higher numbers on a well-designed automated protocol.
 
-        We also observed that collected playlists, ordered by high-score compositions, are of high quality and form a good representation of participants' preferences, while the winner of the tournament is often a participant that is able not simply propose a popular song, but to propose a song that is liked by many participants, including such aspects that participants will likely vote songs they hear for the first time (original ideas).
-
-
-
+        We observed that high-score ordered playlists are of high quality and represent participants' preferences. The tournament winner can propose a song liked by many, including aspects that participants will vote for new songs (original ideas).
 
         \section{Protocol Description}
-        The protocol involves a rotating moderator, also referred as "game master" role - a participant who at the given turn will not perform voting nor proposing and instead will commit as central actor facilitating protocol manually. Game is split in multiple rounds with a typical round duration dependent on use case and time needed to assess the proposals.
+        The protocol involves a rotating moderator, or "game master" role. This is a participant who at the given turn won't vote or propose and will facilitate the protocol manually. The game is split into multiple rounds with a typical round duration dependent on use case and proposal assessment time.
 
-        If amount of players in the game becomes larger than proposal count goal, playlist size may be increased to make sure every participant shares equal load in facilitating moderator role.
-        \paragraph{Proposing stage.}Each round, participants must privately submit their proposal to moderator. When all proposals are aggregated, or when pre-arranged timeout is reached: Moderator compiles publishes actual proposal list, without disclosing identities of proposers.
-        \paragraph{Voting stage.}Participants then have time to privately submit their vote to moderator on three proposals they like, giving them 3,2 and 1 points accordingly. Skipping a vote is considered to give everyone but participant 3 points, efficiently offsetting inactive participant score below rest participants even if he has sent a proposal. Voting for own proposal is disallowed.
-        If proposal was not sent in time, participant is considered to be inactive and moderator might not wait for such participant votes, however if sent is accepted.
-        \paragraph{Reveal stage.}After the timeout or when all actions are made, moderator reveals the results, including proposer identities and scores their proposals aggregated. This public announcement allows participants not only discuss the results, but also gain valuable insights in the preference of other members.
-        \paragraph{Final stage}Participants keep iterating three stages above until the desired count of proposals is reached. Once desired count of proposals obtained, the participant with highest aggregate score of his proposals is considered to be winner, and high-score ordered chart of songs is finalized as well.
-        \paragraph{Boundary cases.} While fairly simple, there are few boundary cases such as (i) submission of duplicate proposals in one or various cycles: in practice such proposals can be merged in one, effectively creating "conviction" voting system, where same proposal can be lifted higher over multiple cycles (ii) if there are multiple highest scoring participants, it is possible to either split winning title between them or iterate "overtime" cycles until distinct leader is obtained.
-
+        If the player count exceeds the proposal goal, the playlist size may increase to ensure every participant shares equal load in facilitating the moderator role.
+        \paragraph{Proposing stage.}Each round, participants must privately submit their proposals to the moderator. When all are aggregated or a pre-arranged timeout is reached, the moderator compiles and publishes the actual proposal list, without disclosing proposers’ identities.
+        \paragraph{Voting stage.}Participants privately submit their vote to the moderator on three proposals they like, giving them 3,2 and 1 points accordingly. Skipping a vote gives everyone but the participant 3 points, offsetting inactive scores below others even if they sent a proposal. Voting for own proposal is disallowed.
+        If the proposal wasn’t sent in time, the participant is considered inactive and the moderator might not wait for their votes. However, if it’s accepted.
+        \paragraph{Reveal stage.}After the timeout or all actions are made, the moderator reveals the results, including proposer identities and aggregated proposal scores. This public announcement allows participants to discuss the results and gain insights into other members’ preferences.
+        \paragraph{Final stage}Participants iterate through the three stages until the desired count of proposals is reached. The participant with the highest aggregate score of proposals wins, and the high-score ordered chart of songs is finalized.
+        \paragraph{Boundary cases.} There are few boundary cases, and they are simple: (i) submission of duplicate proposals in one or various cycles: these can be merged, creating a "conviction" voting system, where the same proposal can be lifted higher over multiple cycles (ii) if there are multiple highest scoring participants, split the winning title or continue additional cycles until a distinct leader emerges.
 
         \section{Prototype study}
-        We wrote a simple implementation of such protocol that allows easy process with protocol automation. Two protocol tournaments were conducted each tournaments consisted of 9 participants.
+        We wrote a simple implementation of a protocol that allows easy process automation. Then, we conducted two tournaments, each with 9 participants.
+        Participants included original concept participants and random people of different age groups who did not know each other.
 
-        Participants included original concept participants and random people who did not know each other of different age groups.
+        The tournament rules and requirements were set close to original: participants had to send YouTube URLs for music compositions no longer than 10 minutes and listen to all to vote.
 
-        Tournaments rules and requirements were set close to original: participants were required to send URLs for music on youtube with composition length of no more than 10 minutes and had to listen for all of them in order to make a vote.
+        A backend server ensured privacy constraints. A quadratic voting system allowed users to spend 14 vote credits in integer form. The only notable difference was that for design simplification, the total playlist length was replaced with a fixed round count.
 
-        Privacy constraints were ensured by a backend server. Quadratic voting system was used, allowing users to spend 14 vote credits in integer form. Only notable difference  was that for sake of design simplification, the total playlist length was replaced with fixed round count.
+        Participants had no incentives and were driven solely by their interest in music. During these two tournaments, some participation metrics were recorded:
 
-        Participants were given no incentives, and were purely their interest in music driven. Some participation rate metrics were recorded during these two tournaments:
         \begin{itemize}[nosep]
             \item \textbf{Participation rate} of 84\% for active users
             \item \textbf{User retention} of 66.7\% after first tournament
             \item Average of \textbf{3.23 proposals and 3.09 votes per user} per month
         \end{itemize}
 
-        Based on conducted experience, participants were asked to fill feedback form, questions asked was possible to rate from 0 to 5.
+        Participants were asked to fill a feedback form with questions rated from 0 to 5 based on experience.
         \begin{itemize}
             \setlength\itemsep{2px}
             \item \textbf{Overall experience rating:} 88\%.
             \item \textbf{Resulting playlists rating:} 92\%.
-            \item \textbf{\textit{"Did playing this game give you new insights into the personalities or perspectives of other players?"}}: was rated at 80\%.
-            \item \textbf{\textit{"Would you be willing to play such game with your friends or family?"}}: was rated at 84\%.
+            \item \textbf{\textit{"Did playing this game give you new insights into other players?"}}: rated 80\%.
+            \item \textbf{\textit{"Would you play such a game with your friends or family?"}}: rated 84\%.
         \end{itemize}
 
-        \paragraph{Turnover participants} were studied as well. Most of turnout respondents referred to lack of either (i) interest in particular subject of protocol implementation or (ii) did not find other proposals interesting, however denoted interest in participating in such with their own circle of friends.
+        \paragraph{Turnover participants}. Most turnout respondents referred to lack of (i) interest in the protocol implementation subject or (ii) other proposals, but showed interest in participating with their own group of friends.
 
-        Participants also proposed various different tournament topics and generally expressed interest. \\When asked \textit{"If you missed any turn to vote or propose, what were main causes"}, all respondents answered that they enjoyed the process however lacked time to listen all of the compositions.
-
-
+        Participants proposed various tournament topics and expressed interest. \\When asked, \textit{"If you missed any turn to vote or propose, what were the main causes"}, all respondents said they enjoyed the process but lacked time to listen to all compositions.
 
         \section{Potential Applications}
-        Protocol allows accommodating wide variety of different voting setups. Under it, traditional democratic voting cases of  few agenda items against high number of voters can be accommodated by simple fact of only X of N submitting proposals.
+        The protocol accommodates various voting setups. It can handle traditional voting cases of few agenda items and many voters by allowing only X of N to submit proposals.
+        It allows a "conviction" voting system where proposal weights increase over multiple rounds if voted for the same proposal. It also accommodates "conviction election" where a leader can continuously propose something chosen by the group may be seen as a competent delegate.
 
-        Furthermore, it allows "conviction" voting system where weights of proposals gain over multiple rounds if voted for same proposal. It also allows to accommodate for "conviction election" where leader continuously able to propose something that group chooses may be seen as competent delegate.
+        It allows extending "conviction" with a quadratic voting system. The original implementation implements a spread of points across the top 3 proposals.\cite{Buterin20}\cite{Benhaim2024}.
 
-        It also allows to extend "conviction" with quadratic voting system naturally, with original implementation already implementing a spread of points across top 3 proposals.\cite{Buterin20}\cite{Benhaim2024}.
+        Implementing non-private voting is straightforward as agents (or moderators) may announce their proposal either freely or by protocol modification.
 
-        Non private voting implementation is also simple as agents (or moderator) may simply announce which is their proposal either on free will, either by protocol modification.
+        Implementing this protocol will create a superset of all known voting systems and advance traditional governance.
 
-        In generally, we can boldly say that implementing this protocol will allow to create the superset of all known to us proposing voting systems in one and is a step further of traditional governance.
+        This is useful in the following applications:
 
-        This leads to concept of that this may be useful in following applications:
+        \paragraph*{Academic Research and Peer Review:} The traditional peer-review process often suffers from biases, delays, and lack of transparency. The autonomous competence identification protocol can address these issues by creating a decentralized system. Researchers can submit their work, review others' submissions, and receive ratings based on the quality and thoroughness of their reviews. This approach leads to faster, more objective, and transparent peer review, improving the quality and credibility of academic research.
 
-        \paragraph*{Academic Research and Peer Review:} The traditional peer-review process often suffers from biases, delays, and lack of transparency. The autonomous competence identification protocol can address these issues by creating a decentralized peer-review system. Researchers can submit their work, review others' submissions, and receive ratings based on the quality and thoroughness of their reviews. This approach can lead to faster, more objective, and transparent peer review, ultimately improving the quality and credibility of academic research.
+        \paragraph*{Online Education and Skill Assessment:} The protocol can be applied to online education platforms to assess and certify learners' skills. They can demonstrate their knowledge and proficiency by participating in competence tournaments or challenges. The ranking system provides a verifiable and transparent way to assess skills, enabling learners to showcase their expertise to potential employers or educational institutions.
 
-        \paragraph*{Online Education and Skill Assessment:} The protocol can be applied to online education platforms to assess and certify learners' skills. By participating in competence tournaments or challenges, learners can demonstrate their knowledge and proficiency in various subjects. The protocol's ranking system can provide a verifiable and transparent way to assess skills, enabling learners to showcase their expertise to potential employers or educational institutions.
+        \paragraph{Agent empathy training} protocol establishes a framework for rating participants and ideas, decoupling evaluation from personal biases. Its continuous feedback loop, utilizing previous round results, fosters deeper alignment among participants and cultivates empathy as they refine their understanding of collective preferences.
 
-        \paragraph{Agent empathy training} protocol establishes a framework for rating both participants and ideas, decoupling evaluation from personal biases. Its continuous feedback loop, utilizing previous round results, fosters deeper alignment among participants and cultivates empathy as they iteratively refine their understanding of collective preferences.
+        This property holds significant value for Cyber-Physical-Social Systems (CPSS)\cite{Fei2016}. Beyond interpersonal empathy, the protocol generates feedback and historical data to create robust, personalized machine learning frameworks by benchmarking AI agents in these tournaments.
 
-        Beyond interpersonal empathy, this property holds significant value for Cyber-Physical-Social Systems (CPSS)\cite{Fei2016}. By benchmarking AI agents participating in these tournaments, the protocol generates feedback and historical data that can be used to create robust, personalized machine learning frameworks.
+        \paragraph{Decentralized charts} The first use case of the Protocol is to create a community-managed intents list that is a useful asset.
 
-        \paragraph{Decentralized charts} Protocol first use case is to create community managed intents list that may be used as useful asset on it own.
+        \paragraph{Just-in-time decision management.} This protocol facilitates streamlined decision-making by obtaining the top-rated proposer and proposal just-in-time through the protocol design.
 
-        \paragraph{Just-in-time decision management.} This protocol can be simply used to facilitate streamlined decision making where top rated proposer and proposal are obtained just-in-time by the protocol design.
-        \paragraph*{Collaborative Writing.} By treating each round as a work cycle, developers can submit pull requests, vote on the best solutions, and iteratively refine the codebase, write documentation etc.
+        \paragraph*{Collaborative Writing.} Developers submit pull requests, vote on solutions, and iteratively refine the codebase and documentation by treating each round as a work cycle.
 
-        The fixed cycle length ensures a strict deadline, promoting efficiency and focus. In such case, assigning extra weight multipliers to later rounds acknowledges the cumulative improvement of code over time, enabling automatic merging of best solution, while participants are encouraged to actively contribute new code and solutions rather than just reviewing and commenting, fostering a proactive and collaborative development environment.
-        \paragraph{Early conflict prediction} By observing how participants vote in setup that abstracts ideas from personalities, it can be seen early if agent opinions are misaligned, serving as early conflict prediction flag.
-        \paragraph*{Decentralized Autonomous Organizations}: DAOs can facilitate subject specific discussions counter problems such as low participation rates and turnover.\cite{Rainer2023}\cite{Marcella2016}\cite{Xuan2024}
-        \paragraph{Delegate finding} groups can facilitate protocol to find fair delegate amongst them with a formalized framework that leaves out problems of halo effect\cite{Verhulst2010} and provide unbiased recognition to the successful member.
+        The fixed cycle length ensures a strict deadline, promoting efficiency and focus. Assigning extra weight multipliers to later rounds acknowledges the cumulative improvement of code over time, enabling automatic merging of best solutions. It encourages participants to contribute new code and solutions rather than just reviewing, fostering a proactive and collaborative development environment.
 
+        \paragraph{Early conflict prediction} By observing participant voting in a setup abstracting ideas from personalities, agent opinion misalignment can be detected early. This serves as a conflict prediction flag.
+        \paragraph*{Decentralized Autonomous Organizations}: DAOs can facilitate subject-specific discussions, countering low participation rates and turnover.\cite{Rainer2023}\cite{Marcella2016}\cite{Xuan2024}
+        \paragraph{Delegate finding} Groups can facilitate a protocol to find a fair delegate with a framework that avoids halo effect problems\cite{Verhulst2010} and provides unbiased recognition to the successful member.
 
     \end{multicols}
     \section{Conclusion}
 
-    This paper introduced a novel protocol for social coordination. This protocol can be seen as superset, that incorporates any existing democratic voting system while also providing freedom and flexibility to create more novel frameworks on top of it.
-    It shows promising metrics in early evaluations and allows to create simple, gamified experience for facilitating useful discussions or AI agent training.
-    We've analyzed a wide area of potential use cases for corporate governance, decentralized organizations, non-profit foundations as well as small households and emerging communities.
-    Ability to reinforce empathy between members and identify conflicts early allows to say that this protocol is not focusing on establishing a social graph between participants, but rather allowing to reinforce it.
-    Further research is desired to see how this protocol may be used as a building block for social, intents based BFT protocols.
+    This paper introduced a novel protocol for social coordination. This protocol is a superset that incorporates existing democratic voting systems while providing freedom and flexibility to create new frameworks.
+    It shows promising metrics in early evaluations and allows creating a simple, gamified experience for facilitating useful discussions or AI agent training.
+    We've analyzed potential use cases for corporate governance, decentralized organizations, non-profit foundations, small households, and emerging communities.
+    This protocol does not focus on establishing a social graph between participants, but rather on reinforcing it, as the ability to reinforce empathy and identify conflicts early allows us to.
+    Further research is needed to see how this protocol could serve as a foundation for social, intents-based BFT protocols.
 
 
     \clearpage
